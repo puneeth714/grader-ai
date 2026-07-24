@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exam Correction MVP</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">EC</div>
+        <div>
+          <h1>Exam Correction Co-Pilot</h1>
+          <p>Teacher verified descriptive paper evaluation</p>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Demo sections">
+        <button class="tab active" data-tab="evaluate">Evaluate</button>
+        <button class="tab" data-tab="report">Report</button>
+        <button class="tab" data-tab="roi">ROI</button>
+        <button class="tab" data-tab="pilot">Pilot</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="evaluate" class="panel active">
+        <div class="workspace">
+          <section class="script-area">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Masked evaluation</p>
+                <h2 id="script-title">Loading script</h2>
+              </div>
+              <div class="status-chip" id="script-status">Loading</div>
+            </div>
+
+            <div class="metric-strip">
+              <div>
+                <span>Script ID</span>
+                <strong id="script-id">--</strong>
+              </div>
+              <div>
+                <span>Suggested Score</span>
+                <strong id="score-label">--</strong>
+              </div>
+              <div>
+                <span>AI Confidence</span>
+                <strong id="confidence-label">--</strong>
+              </div>
+              <div>
+                <span>Review Time</span>
+                <strong id="time-label">--</strong>
+              </div>
+            </div>
+
+            <div class="canvas-shell">
+              <div class="image-stage">
+                <img id="script-image" alt="Handwritten answer script">
+                <div id="annotation-layer" class="annotation-layer"></div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="assistant-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">AI assistant</p>
+                <h2>Rubric Review</h2>
+              </div>
+              <button id="reset-btn" class="ghost-btn">Reset</button>
+            </div>
+
+            <div id="question-list" class="question-list"></div>
+
+            <div class="approval-box">
+              <div>
+                <span>Total after teacher review</span>
+                <strong id="teacher-total">--</strong>
+              </div>
+              <button id="signoff-btn" class="primary-btn">Approve & Sign Off</button>
+              <p id="signoff-note" class="note">Teacher approval is required before marks are finalized.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="report" class="panel">
+        <div class="wide-grid">
+          <section class="card">
+            <p class="eyebrow">Student diagnostic</p>
+            <h2>Concept Mastery</h2>
+            <p class="muted" id="report-summary">Loading report</p>
+            <div id="mastery-list" class="mastery-list"></div>
+          </section>
+
+          <section class="card">
+            <p class="eyebrow">Lost marks analysis</p>
+            <h2>Error Patterns</h2>
+            <div id="error-list" class="stack-list"></div>
+          </section>
+
+          <section class="card">
+            <p class="eyebrow">Next actions</p>
+            <h2>Remedial Plan</h2>
+            <div id="recommendation-list" class="stack-list"></div>
+          </section>
+
+          <section class="card">
+            <p class="eyebrow">Resources</p>
+            <h2>Personalized Materials</h2>
+            <div id="resource-list" class="stack-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="roi" class="panel">
+        <div class="roi-layout">
+          <section class="card">
+            <p class="eyebrow">Principal / COE view</p>
+            <h2>Campus ROI Calculator</h2>
+            <form id="roi-form" class="roi-form">
+              <label>
+                Scripts per year
+                <input name="scripts" type="number" min="1" value="50000">
+              </label>
+              <label>
+                Pages per script
+                <input name="pages_per_script" type="number" min="1" value="10">
+              </label>
+              <label>
+                Current cost per script
+                <input name="current_cost_per_script" type="number" min="1" value="35">
+              </label>
+              <label>
+                Platform cost per script
+                <input name="platform_cost_per_script" type="number" min="1" value="15">
+              </label>
+              <label>
+                Current declaration days
+                <input name="current_days" type="number" min="1" value="30">
+              </label>
+              <label>
+                Projected declaration days
+                <input name="projected_days" type="number" min="1" value="4">
+              </label>
+              <button class="primary-btn" type="submit">Calculate</button>
+            </form>
+          </section>
+
+          <section class="roi-results">
+            <div class="result-card">
+              <span>Annual savings</span>
+              <strong id="roi-savings">--</strong>
+            </div>
+            <div class="result-card">
+              <span>Cost reduction</span>
+              <strong id="roi-percent">--</strong>
+            </div>
+            <div class="result-card">
+              <span>Scripts processed</span>
+              <strong id="roi-scripts">--</strong>
+            </div>
+            <div class="result-card">
+              <span>Result days saved</span>
+              <strong id="roi-days">--</strong>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="pilot" class="panel">
+        <section class="card pilot-card">
+          <p class="eyebrow">Low-risk field validation</p>
+          <h2 id="pilot-title">100-paper campus pilot</h2>
+          <div id="pilot-days" class="timeline"></div>
+          <h3>Adoption criteria</h3>
+          <div id="pilot-criteria" class="criteria-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
