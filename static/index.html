@@ -3,184 +3,984 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Exam Correction MVP</title>
-    <link rel="stylesheet" href="/styles.css">
+    <title>GradingAI Co-Pilot — AI-Powered Exam Correction for CBSE Schools & Colleges</title>
+    <meta name="description" content="GradingAI Co-Pilot reads students' handwritten answer papers, applies the marking rubric and suggests scores with a visible reason — cutting teacher review from ~20–25 minutes to ~2–3 minutes per script. Results in 1–2 days, not weeks. Free 100-paper pilot.">
+    <meta property="og:title" content="GradingAI Co-Pilot — Exam results in 1–2 days, not weeks">
+    <meta property="og:description" content="AI-assisted descriptive exam correction for Indian schools & colleges. Teacher-verified, court-compliant, zero new hardware.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/landing.css">
   </head>
   <body>
-    <header class="topbar">
-      <div class="brand">
-        <div class="mark">EC</div>
-        <div>
-          <h1>Exam Correction Co-Pilot</h1>
-          <p>Teacher verified descriptive paper evaluation</p>
-        </div>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="nav" id="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="GradingAI Co-Pilot home">
+          <span class="mark" aria-hidden="true">G</span>
+          <span class="brand-text">
+            <strong>GradingAI Co-Pilot</strong>
+            <small>AI-assisted exam correction</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav-links" id="nav-links" aria-label="Primary">
+          <a href="#problem">Problem</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#features">Product</a>
+          <a href="#moat">Moat</a>
+          <a href="#roi">ROI</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#pilot">Pilot</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn-ghost" href="/demo.html">See Live Demo</a>
+          <a class="btn btn-primary" href="#contact">Book Free Pilot</a>
+        </nav>
       </div>
-      <nav class="tabs" aria-label="Demo sections">
-        <button class="tab active" data-tab="evaluate">Evaluate</button>
-        <button class="tab" data-tab="report">Report</button>
-        <button class="tab" data-tab="roi">ROI</button>
-        <button class="tab" data-tab="pilot">Pilot</button>
-      </nav>
     </header>
 
-    <main>
-      <section id="evaluate" class="panel active">
-        <div class="workspace">
-          <section class="script-area">
-            <div class="section-head">
-              <div>
-                <p class="eyebrow">Masked evaluation</p>
-                <h2 id="script-title">Loading script</h2>
-              </div>
-              <div class="status-chip" id="script-status">Loading</div>
+    <main id="main">
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">For CBSE Schools &amp; Autonomous Colleges · Tirupati &amp; Hyderabad</p>
+            <h1>Exam results in <span class="accent">1–2 days</span>, not weeks.</h1>
+            <p class="lede">
+              Reads handwriting, applies your rubric, and suggests a score with the reason shown — then your
+              teacher approves in seconds. From <strong>20–25 min → ~2–3 min per script</strong>.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary btn-lg" href="/demo.html">▶ Watch the Live Demo</a>
+              <a class="btn btn-outline btn-lg" href="#contact">Book a Free 100-Paper Pilot</a>
             </div>
+            <p class="fine-print">Zero new hardware · No new student app · Data stays in India</p>
+          </div>
 
-            <div class="metric-strip">
-              <div>
-                <span>Script ID</span>
-                <strong id="script-id">--</strong>
+          <div class="hero-visual" id="hero-demo" aria-hidden="true">
+            <div class="live-canvas">
+              <div class="live-head">
+                <span>Script #TS-2026-9041</span>
+                <span class="chip chip-good">AI pre-grading</span>
               </div>
-              <div>
-                <span>Suggested Score</span>
-                <strong id="score-label">--</strong>
+              <div class="live-stage">
+                <img src="/assets/handwritten_exam_script.jpg" alt="Scanned handwritten answer script being auto-graded">
+                <div class="live-inks" id="live-inks">
+                  <span class="ink ink-good" style="left:6%;top:16%;width:40%;height:11%;--d:0.2s">Q4(b) formula + substitution</span>
+                  <span class="ink ink-bad bad" style="left:52%;top:44%;width:42%;height:11%;--d:0.9s">unit missing in final step</span>
+                  <span class="ink ink-good" style="left:4%;top:72%;width:36%;height:11%;--d:1.5s">correct numerical answer</span>
+                </div>
               </div>
-              <div>
-                <span>AI Confidence</span>
-                <strong id="confidence-label">--</strong>
+              <div class="live-scorebar">
+                <span>Suggested</span>
+                <strong id="hero-score">17</strong><span>/ 20</span>
+                <div class="bar"><i id="hero-bar"></i></div>
+                <span>conf 96%</span>
               </div>
-              <div>
-                <span>Review Time</span>
-                <strong id="time-label">--</strong>
-              </div>
+              <div class="live-status" id="hero-status"><span class="s-dot"></span><span id="hero-status-txt">Auto-grading… reading script</span></div>
             </div>
+            <div class="hero-chip chip-green">Auto-grading · in beta, free pilot</div>
+          </div>
+        </div>
 
-            <div class="canvas-shell">
-              <div class="image-stage">
-                <img id="script-image" alt="Handwritten answer script">
-                <div id="annotation-layer" class="annotation-layer"></div>
-              </div>
-            </div>
-          </section>
-
-          <aside class="assistant-panel">
-            <div class="section-head compact">
-              <div>
-                <p class="eyebrow">AI assistant</p>
-                <h2>Rubric Review</h2>
-              </div>
-              <button id="reset-btn" class="ghost-btn">Reset</button>
-            </div>
-
-            <div id="question-list" class="question-list"></div>
-
-            <div class="approval-box">
-              <div>
-                <span>Total after teacher review</span>
-                <strong id="teacher-total">--</strong>
-              </div>
-              <button id="signoff-btn" class="primary-btn">Approve & Sign Off</button>
-              <p id="signoff-note" class="note">Teacher approval is required before marks are finalized.</p>
-            </div>
-          </aside>
+        <div class="container stats" id="stats">
+          <div class="stat"><strong data-count="90" data-suffix="%">0%</strong><span>less teacher time per script</span></div>
+          <div class="stat"><strong>1–2 days</strong><span>to declare results — vs 3–4 wks</span></div>
+          <div class="stat"><strong data-count="95" data-suffix="%">0%</strong><span>AI–human agreement on descriptive answers</span></div>
+          <div class="stat"><strong data-count="100">0</strong><span>free pilot papers, zero risk</span></div>
         </div>
       </section>
 
-      <section id="report" class="panel">
-        <div class="wide-grid">
-          <section class="card">
-            <p class="eyebrow">Student diagnostic</p>
-            <h2>Concept Mastery</h2>
-            <p class="muted" id="report-summary">Loading report</p>
-            <div id="mastery-list" class="mastery-list"></div>
-          </section>
+      <!-- TWO WAYS -->
+      <section class="section section-tint" id="modes">
+        <div class="container">
+          <p class="eyebrow">Two ways to work</p>
+          <h2 class="section-title">Automated grading, or one-click sign-off</h2>
 
-          <section class="card">
-            <p class="eyebrow">Lost marks analysis</p>
-            <h2>Error Patterns</h2>
-            <div id="error-list" class="stack-list"></div>
-          </section>
+          <div class="tabs" role="tablist" aria-label="Grading modes">
+            <button class="tab-btn active" data-panel="mode-auto" type="button" role="tab" aria-selected="true">Automated marking</button>
+            <button class="tab-btn" data-panel="mode-approve" type="button" role="tab" aria-selected="false">One-click sign-off</button>
+          </div>
 
-          <section class="card">
-            <p class="eyebrow">Next actions</p>
-            <h2>Remedial Plan</h2>
-            <div id="recommendation-list" class="stack-list"></div>
-          </section>
+          <div class="tab-panel active mode-split" id="mode-auto">
+            <div class="mode-copy">
+              <h3>GradingAI pre-grades the whole batch</h3>
+              <p>
+                Reads every handwritten answer, checks it against the rubric, draws the ticks and crosses on the
+                exact lines, and suggests a score with the reason shown — zero teacher input until review.
+              </p>
+              <ul class="mini">
+                <li>Per-question marks against your scheme</li>
+                <li>Visible reason for every score</li>
+              </ul>
+            </div>
+            <div class="mode-visual">
+              <img src="/assets/handwritten_exam_script.jpg" alt="AI marking annotations on a scanned script">
+              <div class="mv-tag">✓ +4.0 formula &amp; steps correct · ✗ −1.5 unit missing</div>
+            </div>
+          </div>
 
-          <section class="card">
-            <p class="eyebrow">Resources</p>
-            <h2>Personalized Materials</h2>
-            <div id="resource-list" class="stack-list"></div>
-          </section>
+          <div class="tab-panel mode-split" id="mode-approve">
+            <div class="mode-copy">
+              <h3>Teacher approves every final mark</h3>
+              <p>
+                Review a script in seconds, override any score you disagree with, then approve. The score locks,
+                the pen-trail is committed, and it syncs straight to your ERP.
+              </p>
+              <ul class="mini">
+                <li><code>Enter</code> to approve the next page</li>
+                <li>Permanent, court-compliant audit trail</li>
+              </ul>
+            </div>
+            <div class="mode-visual">
+              <img src="/assets/handwritten_exam_script.jpg" alt="Teacher review and sign-off screen">
+              <div class="mv-tag">✓ Approved &amp; signed off · 17 / 20</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="roi" class="panel">
-        <div class="roi-layout">
-          <section class="card">
-            <p class="eyebrow">Principal / COE view</p>
-            <h2>Campus ROI Calculator</h2>
-            <form id="roi-form" class="roi-form">
-              <label>
-                Scripts per year
-                <input name="scripts" type="number" min="1" value="50000">
+      <!-- PROBLEM -->
+      <section class="section" id="problem">
+        <div class="container">
+          <p class="eyebrow">The hidden cost of paper exams</p>
+          <h2 class="section-title">Today vs. with GradingAI</h2>
+          <p class="section-sub">Slide the toggle to see what a 1,000-student campus changes.</p>
+
+          <div class="cmp">
+            <div class="cmp-head">
+              <h3>Where the time, money and trust go</h3>
+              <div class="cmp-toggle" role="group" aria-label="Compare today vs GradingAI">
+                <button class="active" data-cmp="today" type="button">Today</button>
+                <button data-cmp="next" type="button">With GradingAI</button>
+              </div>
+            </div>
+
+            <div class="cmp-row">
+              <span class="k">Result declaration</span>
+              <span class="v today">3–4 weeks</span>
+              <span class="v next">1–2 days</span>
+            </div>
+            <div class="cmp-row">
+              <span class="k">Teacher time / script</span>
+              <span class="v today">20–25 min</span>
+              <span class="v next">2–3 min</span>
+            </div>
+            <div class="cmp-row">
+              <span class="k">Annual cost</span>
+              <span class="v today">₹18–25 Lakh</span>
+              <span class="v next">~₹1.8–2.5 Lakh</span>
+            </div>
+            <div class="cmp-row">
+              <span class="k">Teacher load / year</span>
+              <span class="v today">~20,400 hrs</span>
+              <span class="v next">~2,040 hrs</span>
+            </div>
+            <div class="cmp-row val">
+              <span class="k">Errors &amp; disputes</span>
+              <span class="v today">~3.4L re-verifications, 8–12% change</span>
+              <span class="v next">caught before sign-off</span>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Why the last on-screen marking died:</strong> teachers drew every tick by mouse —
+            <em>more work, zero intelligence.</em> GradingAI is not a PDF viewer.
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="section section-tint" id="how-it-works">
+        <div class="container">
+          <p class="eyebrow">How it works</p>
+          <h2 class="section-title">90% AI pre-grading + 10% teacher verification</h2>
+          <p class="section-sub">The machine does the heavy reading. The teacher stays in charge of every final mark.</p>
+
+          <div class="steps">
+            <article class="step">
+              <span class="step-num">1</span>
+              <h3>Scan</h3>
+              <p>QR-coded booklets run through the ADF scanner you already own — double-blind, no new hardware.</p>
+            </article>
+            <article class="step">
+              <span class="step-num">2</span>
+              <h3>AI pre-grades</h3>
+              <p>The model reads messy handwriting, checks the rubric, draws the ticks and suggests a score with the reason shown.</p>
+            </article>
+            <article class="step">
+              <span class="step-num">3</span>
+              <h3>Teacher approves</h3>
+              <p>Review in ~2–3 minutes per script, override anything, and hit <strong>Approve &amp; Sign Off</strong>.</p>
+            </article>
+          </div>
+
+          <div class="canvas-demo demo" id="canvas-demo">
+            <div class="canvas-head">
+              <div>
+                <p class="eyebrow">The Evaluator Canvas</p>
+                <h3>Watch it grade a real scanned paper</h3>
+              </div>
+              <div class="demo-ctl">
+                <div class="seg" role="group" aria-label="Annotation toggle">
+                  <button class="seg-btn active" data-mode="ai" type="button">AI marks on</button>
+                  <button class="seg-btn" data-mode="raw" type="button">Original scan</button>
+                </div>
+                <button class="demo-play" id="demo-play" type="button" aria-label="Play or pause grading demo">❚❚ Pause</button>
+              </div>
+            </div>
+            <div class="canvas-stage">
+              <img id="canvas-img" src="/assets/handwritten_exam_script.jpg" alt="Scanned handwritten physics answer script">
+              <div class="annotations" id="annotations" aria-hidden="true">
+                <span class="tag tag-good" style="left:6%;top:12%;width:44%;height:9%;--d:0.1s">✓ formula + substitution shown</span>
+                <span class="tag tag-bad" style="left:52%;top:14%;width:44%;height:8%;--d:0.8s">✗ unit missing</span>
+                <span class="tag tag-good" style="left:4%;top:40%;width:50%;height:8%;--d:1.4s">✓ free-body diagram labelled</span>
+                <span class="tag tag-bad" style="left:56%;top:44%;width:42%;height:8%;--d:2s">✗ arithmetic slip (16×3)</span>
+                <span class="tag tag-good" style="left:8%;top:64%;width:38%;height:8%;--d:2.6s">✓ correct numerical answer</span>
+                <span class="tag tag-bad" style="left:50%;top:66%;width:46%;height:8%;--d:3.2s">✗ conclusion not stated</span>
+              </div>
+            </div>
+            <p class="canvas-caption">AI marks pop in as it reads. Every mark carries a reason — human agreement ~95%.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="section" id="features">
+        <div class="container">
+          <p class="eyebrow">Product</p>
+          <h2 class="section-title">Built for the realities of Indian exam rooms</h2>
+
+          <div class="cards cards-3">
+            <article class="card">
+              <span class="card-icon">🛡️</span>
+              <h3>Double-blind masking</h3>
+              <p>
+                Roll numbers are unmasked automatically via pre-printed QR codes, so evaluators judge the
+                answer, not the student. No more partiality complaints.
+              </p>
+            </article>
+            <article class="card">
+              <span class="card-icon">⚖️</span>
+              <h3>Court-compliant audit trail</h3>
+              <p>
+                On sign-off, every vector tick and correction is flattened permanently into the PDF —
+                a physical-equivalent record for re-evaluation disputes and legal review.
+              </p>
+            </article>
+            <article class="card">
+              <span class="card-icon">🗂️</span>
+              <h3>Rubric reasoning, always visible</h3>
+              <p>
+                Each suggested mark is paired with the rubric line it matched. Your teachers see <em>why</em>,
+                so they trust the AI and can override it in one click.
+              </p>
+            </article>
+            <article class="card">
+              <span class="card-icon">⌨️</span>
+              <h3>Rapid keyboard workflow</h3>
+              <p>
+                <code>Enter</code> to approve and jump, <code>Tab</code> to override a score,
+                <code>Ctrl+Z</code> to undo a pen stroke. Clearing a batch becomes a rhythm, not a chore.
+              </p>
+            </article>
+            <article class="card">
+              <span class="card-icon">🔗</span>
+              <h3>ERP integration, zero new apps</h3>
+              <p>
+                Marks and feedback sync into your existing stack — <strong>MyCamu, Entab, EduSys</strong> or a
+                custom ERP — and show up in the student app they already use.
+              </p>
+            </article>
+            <article class="card">
+              <span class="card-icon">🇮🇳</span>
+              <h3>Data stays in India</h3>
+              <p>
+                End-to-end encryption, DPDP-aligned practices and hosting on Indian domestic cloud
+                (E2E Networks / AIC Cloud). Your students' data never leaves the country.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- STUDENT LOOP -->
+      <section class="section section-tint" id="student-loop">
+        <div class="container split">
+          <div class="split-copy">
+            <p class="eyebrow">The differentiator</p>
+            <h2 class="section-title">A mark is not feedback. This is.</h2>
+            <p class="lede">
+              Every corrected paper becomes a personal diagnostic report — so a "17/20" turns into
+              <strong>exactly what to study next</strong>.
+            </p>
+            <ul class="checklist">
+              <li><strong>Concept mastery bars</strong> — which micro-topics are strong, which are weak.</li>
+              <li><strong>Error classification</strong> — conceptual gap, arithmetic slip, or presentation issue.</li>
+              <li><strong>Timestamped video lessons</strong> — a 5-minute clip on the exact sub-topic failed.</li>
+              <li><strong>NCERT citations</strong> — chapter and page references your students already own.</li>
+              <li><strong>Auto practice sheet</strong> — a 3-question remedial PDF built from their weak points.</li>
+            </ul>
+            <p class="fine-print">
+              Students ignore static downloads. So we link to videos and build practice they actually attempt —
+              a learning loop that compounds every exam.
+            </p>
+          </div>
+          <div class="split-visual">
+            <div class="mastery-card">
+              <h4>Concept Mastery — Physics · Sem IV</h4>
+              <div class="bar-row"><span>Moment of Inertia formulas</span><strong>96%</strong><div class="track"><i style="width:96%"></i></div></div>
+              <div class="bar-row"><span>Surface mass density integration</span><strong>41%</strong><div class="track"><i style="width:41%"></i></div></div>
+              <div class="bar-row"><span>Sign conventions &amp; units</span><strong>63%</strong><div class="track"><i style="width:63%"></i></div></div>
+              <div class="error-note">
+                <strong>Errors found</strong>
+                <p>• Q3(a): conceptual gap — density integration</p>
+                <p>• Q4(b): arithmetic slip — 16 × 3</p>
+              </div>
+              <div class="error-cta">🎯 Recommended: watch 3-min video on planar lamina integration + practice sheet Q2</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOAT -->
+      <section class="section" id="moat">
+        <div class="container">
+          <p class="eyebrow">Why not just ChatGPT?</p>
+          <h2 class="section-title">A chatbot grades a paper. We run an exam office.</h2>
+          <p class="section-sub">Pasting a paper into Gemini or ChatGPT gets you a guess — not a defensible, batch-wide evaluation. Here's the gap, and why it keeps widening.</p>
+
+          <div class="split">
+            <div>
+              <h3 class="moat-h">What a chatbot can't do</h3>
+              <ul class="moat-list">
+                <li><strong>No rubric engine</strong> — it won't allocate marks question-by-question against your scheme and show the reason for each one.</li>
+                <li><strong>No double-blind masking</strong> — no QR-decoded roll numbers, so no defence against partiality complaints.</li>
+                <li><strong>No audit trail</strong> — no flattened pen-mark PDF that survives re-evaluation and court review.</li>
+                <li><strong>No batch workflow</strong> — no valuation queues, dual-valuation routing or ERP sync for 6,000 scripts a month.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="moat-h">Our moat: the feedback loop</h3>
+              <ul class="moat-list">
+                <li><strong>Every sign-off teaches the system.</strong> Each mark a teacher approves or overrides re-calibrates the rubric to your syllabus, your past papers and your students' handwriting.</li>
+                <li><strong>Accuracy compounds per campus.</strong> The more exams we grade with you, the closer AI–human agreement gets — already ~95% and rising.</li>
+                <li><strong>Switching costs rise.</strong> A competitor starts from zero grading history on your campus. We start from thousands of teacher-verified scripts.</li>
+                <li><strong>The student loop closes it.</strong> Grades become diagnostics → diagnostics reveal what students fail → teaching sharpens → the next exam scores better. That data keeps compounding.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout">
+            Trust is built one approved mark at a time — which is exactly why our accuracy can't be copy-pasted.
+          </div>
+        </div>
+      </section>
+
+      <!-- ROI -->
+      <section class="section" id="roi">
+        <div class="container">
+          <p class="eyebrow">Principal / COE view</p>
+          <h2 class="section-title">What is your teachers' time really costing?</h2>
+          <p class="section-sub">A teacher spends 20–25 minutes on each descriptive script — most of it re-reading and re-totalling. Calculated monthly, forecast to a year. Adjust the numbers for your campus.</p>
+
+          <div class="roi-layout">
+            <form class="roi-form card" id="roi-form">
+              <label>Total students
+                <input name="students" type="number" min="1" value="1000">
               </label>
-              <label>
-                Pages per script
-                <input name="pages_per_script" type="number" min="1" value="10">
+              <label>Scripts per student, per month
+                <input name="scripts_per_month" type="number" min="1" value="6">
               </label>
-              <label>
-                Current cost per script
-                <input name="current_cost_per_script" type="number" min="1" value="35">
+              <label>Manual minutes per script
+                <input name="manual_min" type="number" min="1" value="20">
               </label>
-              <label>
-                Platform cost per script
-                <input name="platform_cost_per_script" type="number" min="1" value="15">
+              <label>GradingAI review minutes per script
+                <input name="ai_min" type="number" min="1" value="3">
               </label>
-              <label>
-                Current declaration days
+              <label>Teacher cost per hour (₹)
+                <input name="teacher_rate" type="number" min="1" value="300">
+              </label>
+              <label>Days to declare results today
                 <input name="current_days" type="number" min="1" value="30">
               </label>
-              <label>
-                Projected declaration days
-                <input name="projected_days" type="number" min="1" value="4">
+              <label>Days with GradingAI
+                <input name="projected_days" type="number" min="1" value="2">
               </label>
-              <button class="primary-btn" type="submit">Calculate</button>
+              <button class="btn btn-primary" type="submit">Calculate teacher time</button>
             </form>
-          </section>
 
-          <section class="roi-results">
-            <div class="result-card">
-              <span>Annual savings</span>
-              <strong id="roi-savings">--</strong>
+            <div class="roi-results">
+              <div class="result-card"><span>Teacher hours freed / month</span><strong id="roi-hours-month">1,700 hrs</strong><small>returned to teaching, not marking</small></div>
+              <div class="result-card"><span>₹ value of freed time / month</span><strong id="roi-value-month">₹5.1 Lakh</strong><small>at ₹300 / hour</small></div>
+              <div class="result-card"><span>Annual forecast</span><strong id="roi-value-year">₹61.2 Lakh</strong><small>≈ 20,400 hrs / year returned</small></div>
+              <div class="result-card"><span>Result declaration</span><strong id="roi-days">28 days faster</strong><small>30 days → 2 days</small></div>
             </div>
-            <div class="result-card">
-              <span>Cost reduction</span>
-              <strong id="roi-percent">--</strong>
-            </div>
-            <div class="result-card">
-              <span>Scripts processed</span>
-              <strong id="roi-scripts">--</strong>
-            </div>
-            <div class="result-card">
-              <span>Result days saved</span>
-              <strong id="roi-days">--</strong>
-            </div>
-          </section>
+          </div>
+
+          <div class="callout callout-slim">
+            GradingAI is priced per enrolled student, per month — predictable, and based on your total student strength.
+            Try the free 100-paper pilot and measure these numbers on your own scripts before committing a rupee.
+          </div>
         </div>
       </section>
 
-      <section id="pilot" class="panel">
-        <section class="card pilot-card">
-          <p class="eyebrow">Low-risk field validation</p>
-          <h2 id="pilot-title">100-paper campus pilot</h2>
-          <div id="pilot-days" class="timeline"></div>
-          <h3>Adoption criteria</h3>
-          <div id="pilot-criteria" class="criteria-list"></div>
-        </section>
+      <!-- COMPLIANCE -->
+      <section class="section section-tint" id="compliance">
+        <div class="container compliance">
+          <p class="eyebrow">Compliance &amp; privacy</p>
+          <h2 class="section-title">Legal, secure, and accountable by design</h2>
+          <div class="badges">
+            <div class="badge"><strong>DPDP</strong><span>2023 data protection aligned</span></div>
+            <div class="badge"><strong>E2E</strong><span>encryption in transit &amp; at rest</span></div>
+            <div class="badge"><strong>🇮🇳</strong><span>Indian domestic cloud hosting</span></div>
+            <div class="badge"><strong>⚖️</strong><span>auditable evaluation trail</span></div>
+            <div class="badge"><strong>🧑‍🏫</strong><span>teacher sign-off on every paper</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section class="section" id="pricing">
+        <div class="container">
+          <p class="eyebrow">Pricing</p>
+          <h2 class="section-title">Honest, per-student pricing</h2>
+          <p class="section-sub">Per enrolled student, per month — so the price scales naturally with your total student strength. No surprise setup fees.</p>
+
+          <div class="cards cards-3 price-cards">
+            <article class="card price">
+              <h3>Pilot</h3>
+              <p class="price-amt">₹0<span>/ 100 papers</span></p>
+              <ul>
+                <li>100 real papers, 3-day turnaround</li>
+                <li>AI pre-grading + teacher review</li>
+                <li>Accuracy &amp; teacher-time report for your COE</li>
+              </ul>
+              <a class="btn btn-outline" href="#contact">Start pilot</a>
+            </article>
+            <article class="card price featured">
+              <h3>School</h3>
+              <p class="price-amt">₹75–100<span>/ student / month</span></p>
+              <ul>
+                <li>All evaluator canvas features</li>
+                <li>Student diagnostic reports</li>
+                <li>MyCamu / Entab sync</li>
+                <li>Email &amp; WhatsApp support</li>
+              </ul>
+              <a class="btn btn-primary" href="#contact">Get a quote</a>
+            </article>
+            <article class="card price">
+              <h3>College / University</h3>
+              <p class="price-amt">₹100–150<span>/ student / month</span></p>
+              <ul>
+                <li>Everything in School, plus</li>
+                <li>COE compliance &amp; audit module</li>
+                <li>Custom ERP integration</li>
+                <li>Dedicated account manager</li>
+              </ul>
+              <a class="btn btn-outline" href="#contact">Talk to us</a>
+            </article>
+          </div>
+
+          <div class="tier-strip">
+            <div class="tier"><strong>&lt; 500 students</strong><span>top of band</span></div>
+            <div class="tier"><strong>500 – 2,000 students</strong><span>mid band</span></div>
+            <div class="tier"><strong>2,000+ students</strong><span>bottom of band</span></div>
+          </div>
+
+          <p class="fine-print center">The per-student rate decreases as total enrolment grows — a 2,000+ student campus pays less per student than a 300-student school. The exact rate is confirmed after the free pilot.</p>
+        </div>
+      </section>
+
+      <!-- PILOT -->
+      <section class="section section-tint" id="pilot">
+        <div class="container">
+          <p class="eyebrow">The offer</p>
+          <h2 class="section-title">Free 100-paper campus pilot — zero risk</h2>
+          <p class="section-sub">Take one recently completed internal mock exam and let us prove the accuracy on your own papers.</p>
+
+          <div class="timeline">
+            <article class="tl-step">
+              <span class="tl-day">Day 1</span>
+              <h3>Scan 100 papers</h3>
+              <p>Use your existing campus scanner. QR-coded, double-blind, nothing leaves your campus servers.</p>
+            </article>
+            <article class="tl-step">
+              <span class="tl-day">Day 2</span>
+              <h3>Teachers review</h3>
+              <p>Three senior faculty try the 1-click evaluation portal on real answer scripts — no training needed.</p>
+            </article>
+            <article class="tl-step">
+              <span class="tl-day">Day 3</span>
+              <h3>Accuracy &amp; savings review</h3>
+              <p>We compare AI marks vs your corrections, collect teacher feedback, and present the ROI case to your Principal &amp; COE.</p>
+            </article>
+          </div>
+
+          <div class="callout">
+            <strong>100% free. 100 papers. 3 days.</strong> You keep every report we generate — even if you never sign with us.
+          </div>
+        </div>
+      </section>
+
+      <!-- PITCH DECK GALLERY -->
+      <section class="section" id="deck">
+        <div class="container">
+          <p class="eyebrow">Pitch deck</p>
+          <h2 class="section-title">The full story, slide by slide</h2>
+          <p class="section-sub">Flip through the complete 16-slide deck we present to principals and COEs — or download it.</p>
+
+          <div class="deck-gallery">
+            <div class="deck-main">
+              <img id="deck-img" src="/assets/slides/slide-01.jpg" alt="Pitch deck slide">
+              <div class="deck-controls">
+                <button class="btn btn-ghost" id="deck-prev" type="button" aria-label="Previous slide">← Prev</button>
+                <span id="deck-counter">1 / 16</span>
+                <button class="btn btn-ghost" id="deck-next" type="button" aria-label="Next slide">Next →</button>
+                <a class="btn btn-primary" href="/assets/gradingai-pitch-deck.pdf" download>⬇ Download PDF</a>
+              </div>
+            </div>
+            <div class="deck-thumbs" id="deck-thumbs" role="list" aria-label="Slide thumbnails"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section-tint" id="faq">
+        <div class="container faq-wrap">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="section-title">Questions principals ask us</h2>
+
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>What about messy handwriting? Will it misread students?</summary>
+              <p>
+                Our hybrid OCR + vision pipeline is built for Indian handwriting styles and messy scans.
+                Independent evaluations put AI–human agreement at ~95% on descriptive answers — and higher
+                when teachers calibrate the rubric on a sample first. Crucially, nothing is final until a
+                teacher signs off — a misread mark is caught and corrected in seconds, not weeks.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Does this replace our teachers?</summary>
+              <p>
+                No. It removes ~90% of the correction time that is re-reading, re-totalling and writing the same
+                comments — turning ~20–25 minutes per script into ~2–3 minutes of review. Teachers keep full
+                authority over every mark and gain time for actual teaching.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>We already use MyCamu / Entab. Do we need new software?</summary>
+              <p>
+                No. We integrate with your existing ERP and student app through REST APIs and webhooks. Teachers
+                and students stay in the tools they already use.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Do we need to buy scanners or new hardware?</summary>
+              <p>
+                No. We work with the ADF scanners campuses already own — Canon, Fujitsu, Epson — via standard
+                TWAIN/WIA drivers, with automatic deskew, contrast and blank-page discarding.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>How does your pricing work?</summary>
+              <p>
+                Per enrolled student, per month, billed for the academic year. Schools pay ₹75–100 per
+                student/month and universities slightly more; the per-student rate drops as total student
+                strength grows. You only start paying after a free 100-paper pilot confirms the value on
+                your own scripts.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Where is student data stored?</summary>
+              <p>
+                On Indian domestic cloud infrastructure (E2E Networks / AIC Cloud), encrypted in transit and at
+                rest, and aligned with DPDP 2023 requirements. We can also run fully on-prem for sensitive campuses.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Will this survive re-evaluation disputes?</summary>
+              <p>
+                Yes. Every tick, score and override is permanently flattened into the PDF at sign-off, creating a
+                physical-equivalent audit trail that stands up in re-evaluation and legal review.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>How is this different from pasting papers into ChatGPT or Gemini?</summary>
+              <p>
+                ChatGPT and Gemini are general-purpose chatbots: paste a paper and you get a guess — no rubric, no
+                per-question mark breakdown, no double-blind masking, and nothing you could defend in court. GradingAI
+                is built around the exam office: a rubric engine that shows the reason for every mark, teacher
+                sign-off, a flattened pen-mark PDF for disputes, and ERP integration. It's a grading system, not a
+                chat window.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>What's your moat? What stops someone copying you?</summary>
+              <p>
+                Anyone can build a vision model. The moat is the feedback loop: every mark your teachers approve or
+                override re-calibrates our rubric to your syllabus, your past papers and your students' handwriting.
+                Accuracy compounds with every exam we grade for you, and a competitor starting today has zero grading
+                history on your campus. Switching away means throwing away that calibrated accuracy.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Why is the feedback loop so important?</summary>
+              <p>
+                Grades alone are static — the loop is what compounds value. A corrected paper becomes a diagnostic
+                report, which pinpoints the exact sub-topics a student failed, which drives targeted teaching, which
+                shows up in the next exam — and every step gives the AI cleaner signal. It turns a one-time correction
+                service into an asset that gets smarter every term.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section contact" id="contact">
+        <div class="container contact-box">
+          <p class="eyebrow">Let's talk</p>
+          <h2 class="section-title">Book your free 100-paper pilot</h2>
+          <p class="section-sub">
+            Pick a time for a 20-minute call or campus visit. We'll bring the demo, the deck and a pilot plan
+            for your next internal exam.
+          </p>
+          <div class="contact-actions">
+            <a class="btn btn-primary btn-lg" href="mailto:kpuneeth20019@gmail.com">✉️ kpuneeth20019@gmail.com</a>
+            <a class="btn btn-outline btn-lg" href="/demo.html">Explore the demo first</a>
+          </div>
+          <p class="fine-print center">Serving CBSE schools &amp; autonomous colleges in Tirupati, Hyderabad and Telangana / Andhra Pradesh.</p>
+        </div>
       </section>
     </main>
 
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>
+          <a class="brand" href="#top">
+            <span class="mark" aria-hidden="true">G</span>
+            <span class="brand-text"><strong>GradingAI Co-Pilot</strong></span>
+          </a>
+          <p>AI-assisted descriptive exam correction for Indian schools &amp; colleges.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#problem">Problem</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#roi">ROI</a>
+          <a href="#moat">Moat</a>
+          <a href="#pilot">Pilot</a>
+          <a href="#deck">Pitch deck</a>
+          <a href="/demo.html">Live demo</a>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:kpuneeth20019@gmail.com">kpuneeth20019@gmail.com</a>
+          <span>Built in India 🇮🇳 · DPDP aligned</span>
+        </div>
+      </div>
+    </footer>
+
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js"></script>
+
+    <script>
+      const SLIDE_COUNT = 16;
+      const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        setupNav();
+        setupReveal();
+        setupCounters();
+        setupTabs();
+        setupCmp();
+        setupDemos();
+        setupCanvasToggle();
+        setupRoi();
+        setupDeck();
+        setupFaq();
+      });
+
+      function setupNav() {
+        const toggle = document.getElementById("nav-toggle");
+        const links = document.getElementById("nav-links");
+        toggle.addEventListener("click", () => {
+          const open = links.classList.toggle("open");
+          toggle.classList.toggle("open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+        });
+        links.addEventListener("click", (e) => {
+          if (e.target.closest("a")) {
+            links.classList.remove("open");
+            toggle.classList.remove("open");
+            toggle.setAttribute("aria-expanded", "false");
+          }
+        });
+        document.querySelectorAll('a[href^="#"]').forEach((a) => {
+          a.addEventListener("click", (e) => {
+            const id = a.getAttribute("href");
+            if (id.length > 1) {
+              const el = document.querySelector(id);
+              if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }
+          });
+        });
+      }
+
+      function setupReveal() {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        document.querySelectorAll(".card, .step, .tl-step, .price, .split-visual, .roi-layout").forEach((el) => {
+          el.classList.add("reveal");
+          io.observe(el);
+        });
+      }
+
+      function setupCounters() {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = Number(el.dataset.count);
+            const prefix = el.dataset.prefix || "";
+            const suffix = el.dataset.suffix || "";
+            const dur = 1400;
+            const start = performance.now();
+            const fmt = new Intl.NumberFormat("en-IN");
+            (function tick(now) {
+              const p = Math.min((now - start) / dur, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = prefix + fmt.format(Math.round(target * eased)) + suffix;
+              if (p < 1) requestAnimationFrame(tick);
+            })(start);
+            io.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        document.querySelectorAll("[data-count]").forEach((el) => io.observe(el));
+      }
+
+      function setupTabs() {
+        document.querySelectorAll(".tab-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const group = btn.closest(".tabs");
+            group.querySelectorAll(".tab-btn").forEach((b) => {
+              b.classList.remove("active");
+              b.setAttribute("aria-selected", "false");
+            });
+            btn.classList.add("active");
+            btn.setAttribute("aria-selected", "true");
+            const id = btn.dataset.panel;
+            group.parentElement.querySelectorAll(".tab-panel").forEach((p) => {
+              p.classList.toggle("active", p.id === id);
+            });
+          });
+        });
+      }
+
+      function setupCmp() {
+        document.querySelectorAll(".cmp-toggle button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const toggle = btn.closest(".cmp-toggle");
+            toggle.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const cmp = toggle.closest(".cmp");
+            cmp.classList.toggle("cmp-today", btn.dataset.cmp === "today");
+            cmp.classList.toggle("cmp-next", btn.dataset.cmp === "next");
+          });
+        });
+      }
+
+      function reducedMotion() {
+        return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+
+      function setupDemos() {
+        const hero = document.getElementById("hero-demo");
+        const canvas = document.getElementById("canvas-demo");
+        if (!hero && !canvas) return;
+
+        const statusTxt = document.getElementById("hero-status-txt");
+        const runHero = () => {
+          const bar = document.getElementById("hero-bar");
+          hero.classList.remove("autoplay");
+          bar.classList.remove("done");
+          if (statusTxt) statusTxt.textContent = "Auto-grading… reading script";
+          void hero.offsetWidth;
+          hero.classList.add("autoplay");
+          setTimeout(() => bar.classList.add("done"), 2100);
+          setTimeout(() => {
+            if (statusTxt) statusTxt.textContent = "Auto-graded Q1–Q6 · ready for teacher";
+          }, 3400);
+        };
+        const heroDone = () => {
+          hero.classList.add("autoplay");
+          const b = document.getElementById("hero-bar");
+          if (b) b.classList.add("done");
+          if (statusTxt) statusTxt.textContent = "Auto-graded Q1–Q6 · ready for teacher";
+        };
+
+        const runCanvas = () => {
+          canvas.classList.remove("playing");
+          void canvas.offsetWidth;
+          canvas.classList.add("playing");
+        };
+
+        const observeHero = () => {
+          if (reducedMotion()) { heroDone(); return; }
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                runHero();
+                setInterval(runHero, 7000);
+                io.disconnect();
+              }
+            });
+          }, { threshold: 0.3 });
+          io.observe(hero);
+        };
+        const observeCanvas = () => {
+          if (reducedMotion()) { canvas.classList.add("playing"); return; }
+          let timer = null;
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                if (timer) clearInterval(timer);
+                runCanvas();
+                timer = setInterval(runCanvas, 6500);
+                io.disconnect();
+              }
+            });
+          }, { threshold: 0.25 });
+          io.observe(canvas);
+
+          const play = document.getElementById("demo-play");
+          if (play) {
+            play.addEventListener("click", () => {
+              if (timer) { clearInterval(timer); timer = null; canvas.classList.remove("playing"); play.textContent = "▶ Play"; play.setAttribute("aria-label", "Play grading demo"); }
+              else { runCanvas(); timer = setInterval(runCanvas, 6500); play.textContent = "❚❚ Pause"; play.setAttribute("aria-label", "Pause grading demo"); }
+            });
+          }
+        };
+
+        if (hero) observeHero();
+        if (canvas) observeCanvas();
+      }
+
+      function setupCanvasToggle() {
+        const btns = document.querySelectorAll(".seg-btn");
+        const annotations = document.getElementById("annotations");
+        const img = document.getElementById("canvas-img");
+        btns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            btns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const mode = btn.dataset.mode;
+            annotations.classList.toggle("hidden", mode !== "ai");
+            img.classList.toggle("dimmed", mode === "ai");
+          });
+        });
+      }
+
+      function setupRoi() {
+        const form = document.getElementById("roi-form");
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(form).entries());
+          const students = Number(data.students) || 0;
+          const perMonth = Number(data.scripts_per_month) || 0;
+          const manualMin = Number(data.manual_min) || 0;
+          const aiMin = Number(data.ai_min) || 0;
+          const rate = Number(data.teacher_rate) || 0;
+          const curDays = Number(data.current_days) || 0;
+          const projDays = Number(data.projected_days) || 0;
+          const savedMin = Math.max(manualMin - aiMin, 0);
+          const scriptsMonth = students * perMonth;
+          const hoursMonth = Math.round((scriptsMonth * savedMin) / 60);
+          const hoursYear = hoursMonth * 12;
+          const valueMonth = hoursMonth * rate;
+          const valueYear = hoursYear * rate;
+
+          document.getElementById("roi-hours-month").textContent = hoursMonth.toLocaleString("en-IN") + " hrs";
+          document.getElementById("roi-value-month").textContent =
+            "₹" + (valueMonth / 100000).toLocaleString("en-IN", { maximumFractionDigits: 1 }) + " Lakh";
+          document.getElementById("roi-value-year").textContent =
+            "₹" + (valueYear / 100000).toLocaleString("en-IN", { maximumFractionDigits: 1 }) + " Lakh";
+          document.getElementById("roi-days").textContent =
+            Math.max(curDays - projDays, 0) + " days faster";
+          showToast("Teacher time recalculated");
+        });
+        form.dispatchEvent(new Event("submit", { cancelable: true }));
+      }
+
+      function setupDeck() {
+        const img = document.getElementById("deck-img");
+        const counter = document.getElementById("deck-counter");
+        const thumbs = document.getElementById("deck-thumbs");
+        const prev = document.getElementById("deck-prev");
+        const next = document.getElementById("deck-next");
+        let current = 1;
+
+        const pad = (n) => String(n).padStart(2, "0");
+        for (let i = 1; i <= SLIDE_COUNT; i++) {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "thumb" + (i === 1 ? " active" : "");
+          b.setAttribute("role", "listitem");
+          const im = document.createElement("img");
+          im.src = `/assets/slides/slide-${pad(i)}.jpg`;
+          im.alt = `Slide ${i}`;
+          im.loading = "lazy";
+          b.appendChild(im);
+          b.addEventListener("click", () => show(i));
+          thumbs.appendChild(b);
+        }
+
+        function show(i) {
+          current = Math.max(1, Math.min(SLIDE_COUNT, i));
+          img.style.opacity = 0;
+          setTimeout(() => {
+            img.src = `/assets/slides/slide-${pad(current)}.jpg`;
+            img.style.opacity = 1;
+          }, 120);
+          counter.textContent = `${current} / ${SLIDE_COUNT}`;
+          thumbs.querySelectorAll(".thumb").forEach((t, idx) => t.classList.toggle("active", idx === current - 1));
+          img.alt = `Pitch deck slide ${current}`;
+        }
+
+        prev.addEventListener("click", () => show(current - 1));
+        next.addEventListener("click", () => show(current + 1));
+      }
+
+      function setupFaq() {
+        document.querySelectorAll(".faq-item summary").forEach((sum) => {
+          sum.addEventListener("click", () => {
+            document.querySelectorAll(".faq-item").forEach((item) => {
+              if (item !== sum.closest(".faq-item")) item.removeAttribute("open");
+            });
+          });
+        });
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.setTimeout(() => toast.classList.remove("show"), 2200);
+      }
+    </script>
   </body>
 </html>
