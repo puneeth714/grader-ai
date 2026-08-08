@@ -53,16 +53,9 @@ header {
 }
 
 .brand-logo {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.25rem;
-    box-shadow: 0 0 20px var(--primary-glow);
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
 }
 
 .brand-title {

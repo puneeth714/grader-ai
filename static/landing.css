@@ -85,15 +85,10 @@ code { font-family: "JetBrains Mono", monospace; background: var(--surface-2); p
   padding: 12px 0;
 }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.mark {
+.brand-mark {
   width: 40px; height: 40px;
-  display: grid; place-items: center;
-  border-radius: 10px;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 800;
-  font-size: 19px;
-  box-shadow: 0 8px 18px rgba(29, 111, 95, 0.35);
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-text strong { font-size: 16px; }
