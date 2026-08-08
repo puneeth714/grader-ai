@@ -1,5 +1,14 @@
+// Gate the live grading page AND its subresources (/live, /live/, /live.js, /live.css).
+// Landing (/), demo and all other pages stay public.
+const PROTECTED_PREFIX = "/live";
+
 export async function onRequest(context) {
   const { request, env } = context;
+
+  const pathname = new URL(request.url).pathname;
+  if (!pathname.startsWith(PROTECTED_PREFIX)) {
+    return await context.next(); // public pages pass through
+  }
 
   const authUser = env.AUTH_USER;
   const authPass = env.AUTH_PASS;
