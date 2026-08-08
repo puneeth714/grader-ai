@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradingAI Co-Pilot — Live AI Exam Grading Demo</title>
+    <meta name="description" content="Live AI-assisted descriptive exam correction demo powered by Gemini. Real handwriting recognition, rubric matching, and annotated script generation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/live.css">
+</head>
+<body>
+
+    <header>
+        <a href="/" class="brand-container">
+            <div class="brand-logo">⚡</div>
+            <div>
+                <div class="brand-title">GradingAI Live Engine</div>
+                <div class="brand-sub">Real Deterministic AI Grading</div>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <div class="engine-status-pill" id="engine-status-pill">
+                <div class="status-dot"></div>
+                <span id="engine-status-txt">Checking engine status…</span>
+            </div>
+            <a href="/" class="nav-link">🏠 Home</a>
+            <a href="/demo.html" class="nav-link">📊 Enterprise Walkthrough</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Offline Warning Banner -->
+        <div class="notice-banner offline" id="offline-banner" style="display: none;">
+            <div>
+                <div class="notice-title">⚠️ Live Backend Engine Offline</div>
+                <div class="notice-desc">Showing verified offline evaluation snapshot from synthetic Physics assessment (Deterministic 10.0/10.0 score).</div>
+            </div>
+            <button class="btn btn-outline" onclick="checkEngineHealth()">Retry Connection</button>
+        </div>
+
+        <!-- Upload & Control Grid -->
+        <section class="upload-grid">
+            <div class="upload-card">
+                <h3><span>📄 1. Question Paper Image</span> <small style="color: var(--text-muted); font-size: 0.75rem;">(≤15MB)</small></h3>
+                <div class="dropzone" id="qp-zone">
+                    <div class="dropzone-icon">📤</div>
+                    <div class="dropzone-text">Click or drag & drop Question Paper</div>
+                    <div class="dropzone-file-name" id="qp-name">No file selected</div>
+                </div>
+                <input type="file" id="qp-input" class="hidden-file-input" accept="image/*">
+            </div>
+
+            <div class="upload-card">
+                <h3><span>📝 2. Student Answer Script</span> <small style="color: var(--text-muted); font-size: 0.75rem;">(≤15MB)</small></h3>
+                <div class="dropzone" id="ans-zone">
+                    <div class="dropzone-icon">🖋️</div>
+                    <div class="dropzone-text">Click or drag & drop Student Answer Script</div>
+                    <div class="dropzone-file-name" id="ans-name">No file selected</div>
+                </div>
+                <input type="file" id="ans-input" class="hidden-file-input" accept="image/*">
+            </div>
+
+            <div class="action-card">
+                <div>
+                    <h3 style="margin-bottom: 0.5rem;">⚡ Quick Preset</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">
+                        Load our synthetic 10-mark Physics paper and answer script.
+                    </p>
+                    <button class="btn btn-preset" id="preset-btn" style="width: 100%;">
+                        ⚡ Load Physics Exam Preset
+                    </button>
+                </div>
+
+                <button class="btn btn-primary" id="grade-btn" disabled style="padding: 1rem; font-size: 0.95rem;">
+                    <div class="spinner" id="grade-spinner" style="display: none;"></div>
+                    <span id="grade-btn-text">🚀 Grade Script with AI Engine</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-workspace">
+            <!-- Left: Real Annotated PNG Image -->
+            <div class="annotated-card">
+                <div class="card-header">
+                    <span>🖼️ Real AI Annotated Script</span>
+                    <small style="color: var(--text-muted);">Generated PNG Output</small>
+                </div>
+                <div class="img-container">
+                    <img id="annotated-img" class="annotated-img" src="/assets/synthetic_answer_script.png" alt="AI Annotated Student Answer Script">
+                </div>
+            </div>
+
+            <!-- Right: Question Breakdown & Marks -->
+            <div class="breakdown-card">
+                <div class="card-header">
+                    <span>📊 Evaluation Summary & Breakdown</span>
+                    <small style="color: var(--accent-green); font-weight: 700;">Deterministic Mark</small>
+                </div>
+                <div class="breakdown-body">
+                    <div class="score-hero">
+                        <div style="font-size: 0.82rem; color: var(--text-muted);">Suggested Total Score</div>
+                        <div class="score-main-val" id="score-display">0.0 / 10.0</div>
+                        <div class="score-meta" id="confidence-display">Ready for evaluation</div>
+                    </div>
+
+                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Question-by-Question Marks & Reasons</div>
+                    <div id="questions-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                        <!-- Dynamically rendered -->
+                    </div>
+
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-top: 0.5rem;">Raw Engine Report Card</div>
+                    <div class="card-markdown" id="card-markdown">Waiting for evaluation run…</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="/live.js"></script>
+</body>
+</html>
