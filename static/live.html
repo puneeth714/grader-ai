@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GradingAI Co-Pilot — Live AI Exam Grading Demo</title>
-    <meta name="description" content="Live AI-assisted descriptive exam correction demo powered by Gemini. Real handwriting recognition, rubric matching, and annotated script generation.">
+    <meta name="description" content="Live AI-assisted descriptive exam correction co-pilot. Real handwriting recognition, rubric matching, and annotated vector script generation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/live.css">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 </head>
 <body>
 
+    <!-- Top Navigation Header -->
     <header>
         <a href="/" class="brand-container">
             <img class="brand-logo" src="/pen-logo-white.svg" alt="GradingAI Logo" width="32" height="32">
             <div>
-                <div class="brand-title">GradingAI Live Engine</div>
-                <div class="brand-sub">Real Deterministic AI Grading</div>
+                <div class="brand-title">GradingAI Co-Pilot</div>
+                <div class="brand-sub">Real Deterministic AI Grading Engine</div>
             </div>
         </a>
 
@@ -36,91 +37,282 @@
     <main>
         <!-- Offline Warning Banner -->
         <div class="notice-banner offline" id="offline-banner" style="display: none;">
-            <div>
+            <div class="notice-content">
                 <div class="notice-title">⚠️ Live Backend Engine Offline</div>
-                <div class="notice-desc">Showing verified offline evaluation snapshot from synthetic Physics assessment (Deterministic 10.0/10.0 score).</div>
+                <div class="notice-desc">Displaying verified Academic Heights Class VIII Physics PT-II evaluation snapshot (Deterministic 10.5/20.0 score).</div>
             </div>
-            <button class="btn btn-outline" onclick="checkEngineHealth()">Retry Connection</button>
+            <button class="btn btn-outline btn-sm" onclick="checkEngineHealth()">🔄 Retry Connection</button>
         </div>
 
-        <!-- Upload & Control Grid -->
+        <!-- 3-Card Upload & Preset Grid -->
         <section class="upload-grid">
-            <div class="upload-card">
-                <h3><span>📄 1. Question Paper Image</span> <small style="color: var(--text-muted); font-size: 0.75rem;">(≤15MB)</small></h3>
+            <!-- Card 1: Question Paper -->
+            <div class="upload-card" id="card-qp">
+                <div class="upload-card-header">
+                    <h3><span>📄 1. Question Paper</span></h3>
+                    <span class="file-spec-badge">≤ 15MB · PNG / JPG / PDF</span>
+                </div>
+                
                 <div class="dropzone" id="qp-zone">
-                    <div class="dropzone-icon">📤</div>
-                    <div class="dropzone-text">Click or drag & drop Question Paper</div>
-                    <div class="dropzone-file-name" id="qp-name">No file selected</div>
+                    <!-- Empty Initial State -->
+                    <div class="dropzone-empty" id="qp-empty">
+                        <div class="dropzone-icon">📤</div>
+                        <div class="dropzone-main-text">Click or drag &amp; drop Question Paper</div>
+                        <div class="dropzone-sub-text">PNG, JPG, or PDF exam question sheet</div>
+                    </div>
+
+                    <!-- Selected / Loaded Preview State -->
+                    <div class="dropzone-preview" id="qp-preview-box" style="display: none;">
+                        <div class="thumb-container">
+                            <img id="qp-thumb" class="thumb-img" src="" alt="Question Paper Thumbnail">
+                        </div>
+                        <div class="file-meta">
+                            <div class="file-name" id="qp-name">ah_physics_qp.png</div>
+                            <div class="file-size" id="qp-size">190 KB · Physics PT-II</div>
+                            <button type="button" class="btn-clear-file" id="qp-clear-btn" title="Remove or change file">✕ Change</button>
+                        </div>
+                    </div>
                 </div>
-                <input type="file" id="qp-input" class="hidden-file-input" accept="image/*">
+                <input type="file" id="qp-input" class="hidden-file-input" accept="image/png, image/jpeg, image/webp, application/pdf">
             </div>
 
-            <div class="upload-card">
-                <h3><span>📝 2. Student Answer Script</span> <small style="color: var(--text-muted); font-size: 0.75rem;">(≤15MB)</small></h3>
+            <!-- Card 2: Student Answer Sheet -->
+            <div class="upload-card" id="card-ans">
+                <div class="upload-card-header">
+                    <h3><span>📝 2. Student Answer Script</span></h3>
+                    <span class="file-spec-badge">≤ 15MB · Raw Handwriting</span>
+                </div>
+
                 <div class="dropzone" id="ans-zone">
-                    <div class="dropzone-icon">🖋️</div>
-                    <div class="dropzone-text">Click or drag & drop Student Answer Script</div>
-                    <div class="dropzone-file-name" id="ans-name">No file selected</div>
+                    <!-- Empty Initial State -->
+                    <div class="dropzone-empty" id="ans-empty">
+                        <div class="dropzone-icon">🖋️</div>
+                        <div class="dropzone-main-text">Click or drag &amp; drop Student Script</div>
+                        <div class="dropzone-sub-text">Un-annotated handwritten exam paper</div>
+                    </div>
+
+                    <!-- Selected / Loaded Preview State -->
+                    <div class="dropzone-preview" id="ans-preview-box" style="display: none;">
+                        <div class="thumb-container">
+                            <img id="ans-thumb" class="thumb-img" src="" alt="Student Script Thumbnail">
+                        </div>
+                        <div class="file-meta">
+                            <div class="file-name" id="ans-name">ah_physics_ans_p1.png</div>
+                            <div class="file-size" id="ans-size">875 KB · P. Maheedhar</div>
+                            <button type="button" class="btn-clear-file" id="ans-clear-btn" title="Remove or change file">✕ Change</button>
+                        </div>
+                    </div>
                 </div>
-                <input type="file" id="ans-input" class="hidden-file-input" accept="image/*">
+                <input type="file" id="ans-input" class="hidden-file-input" accept="image/png, image/jpeg, image/webp">
             </div>
 
+            <!-- Card 3: Quick Preset & Action -->
             <div class="action-card">
-                <div>
-                    <h3 style="margin-bottom: 0.5rem;">Quick Preset</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">
-                        Load our synthetic 10-mark Physics paper and answer script.
+                <div class="preset-section">
+                    <div class="preset-badge">⚡ Quick Exam Preset</div>
+                    <h4 class="preset-title">Academic Heights Physics PT-II</h4>
+                    <p class="preset-desc">
+                        Instantly load real Class VIII Physics Periodic Test (20 Marks) with student handwriting script.
                     </p>
-                    <button class="btn btn-preset" id="preset-btn" style="width: 100%;">
-                        Load Physics Exam Preset
+                    <button class="btn btn-preset" id="preset-btn">
+                        <span class="preset-icon">✨</span>
+                        <span>Load Academic Heights Exam Preset</span>
                     </button>
                 </div>
 
-                <button class="btn btn-primary" id="grade-btn" disabled style="padding: 1rem; font-size: 0.95rem;">
-                    <div class="spinner" id="grade-spinner" style="display: none;"></div>
-                    <span id="grade-btn-text">🚀 Grade Script with AI Engine</span>
-                </button>
+                <div class="action-footer">
+                    <button class="btn btn-primary btn-grade" id="grade-btn" disabled>
+                        <div class="spinner" id="grade-spinner" style="display: none;"></div>
+                        <span id="grade-btn-text">🚀 Grade Script with AI Engine</span>
+                    </button>
+                    <div class="grade-hint" id="grade-hint">Upload both papers or load preset to begin</div>
+                </div>
             </div>
         </section>
 
-        <!-- Results Section -->
-        <section class="results-workspace">
-            <!-- Left: Real Annotated PNG Image -->
-            <div class="annotated-card">
-                <div class="card-header">
-                    <span>🖼️ Real AI Annotated Script</span>
-                    <small style="color: var(--text-muted);">Generated PNG Output</small>
+        <!-- Grading Stepper (Active during evaluation) -->
+        <section class="stepper-section" id="stepper-section" style="display: none;">
+            <div class="stepper-card">
+                <div class="stepper-header">
+                    <div class="stepper-title-row">
+                        <div class="stepper-pulse"></div>
+                        <span class="stepper-title" id="stepper-status-text">AI Evaluation Pipeline in Progress…</span>
+                    </div>
+                    <span class="stepper-timer" id="stepper-timer">00:03</span>
                 </div>
-                <div class="img-container">
-                    <img id="annotated-img" class="annotated-img" src="/assets/synthetic_answer_script.png" alt="AI Annotated Student Answer Script">
+                <div class="stepper-track">
+                    <div class="step-item" id="step-1">
+                        <div class="step-icon-wrap">
+                            <span class="step-icon">1</span>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-label">Analyzing Question Paper</div>
+                            <div class="step-sub">Extracting questions, marks schema &amp; marking rubrics</div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector" id="connector-1"></div>
+
+                    <div class="step-item" id="step-2">
+                        <div class="step-icon-wrap">
+                            <span class="step-icon">2</span>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-label">Inspecting Handwriting &amp; Evidence</div>
+                            <div class="step-sub">Gemini OCR transcription &amp; semantic rubric verification</div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector" id="connector-2"></div>
+
+                    <div class="step-item" id="step-3">
+                        <div class="step-icon-wrap">
+                            <span class="step-icon">3</span>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-label">Generating Annotations &amp; Score</div>
+                            <div class="step-sub">Vector bounding overlays &amp; explainable deductions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Initial Placeholder State (Clean before grading) -->
+        <section class="placeholder-section" id="results-placeholder">
+            <div class="placeholder-card">
+                <div class="placeholder-icon">🎯</div>
+                <h3>Ready for Deterministic AI Grading</h3>
+                <p>
+                    GradingAI performs pixel-accurate handwriting OCR, matches student responses against the question paper rubric, and renders explainable vector annotations.
+                </p>
+                <div class="placeholder-actions">
+                    <button class="btn btn-outline" onclick="loadSyntheticPreset()">
+                        ✨ Load Academic Heights Preset
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graded Results Section (Revealed after grading) -->
+        <section class="results-workspace" id="results-workspace" style="display: none;">
+            <!-- Left Column: Multi-tab Image Viewer -->
+            <div class="viewer-card">
+                <div class="viewer-header">
+                    <div class="viewer-tabs">
+                        <button class="tab-btn active" id="tab-annotated" onclick="switchViewerTab('annotated')">
+                            <span class="tab-icon">🖼️</span>
+                            <span>Graded &amp; Annotated</span>
+                        </button>
+                        <button class="tab-btn" id="tab-raw" onclick="switchViewerTab('raw')">
+                            <span class="tab-icon">📄</span>
+                            <span>Original Script</span>
+                        </button>
+                        <button class="tab-btn" id="tab-qp" onclick="switchViewerTab('qp')">
+                            <span class="tab-icon">📋</span>
+                            <span>Question Paper</span>
+                        </button>
+                    </div>
+
+                    <div class="viewer-controls">
+                        <button class="ctrl-btn" onclick="zoomImage(-0.15)" title="Zoom Out">🔍−</button>
+                        <span class="zoom-level" id="zoom-text">100%</span>
+                        <button class="ctrl-btn" onclick="zoomImage(0.15)" title="Zoom In">🔍+</button>
+                        <button class="ctrl-btn" onclick="resetZoom()" title="Reset Fit">↺ Fit</button>
+                        <button class="ctrl-btn" onclick="openFullscreenModal()" title="View Fullscreen">⛶</button>
+                    </div>
+                </div>
+
+                <div class="img-viewport" id="img-viewport">
+                    <div class="img-transform-layer" id="img-transform-layer">
+                        <img id="annotated-img" class="viewer-img" src="" alt="AI Annotated Student Answer Script" style="display: block;">
+                        <img id="raw-script-img" class="viewer-img" src="" alt="Original Raw Student Answer Script" style="display: none;">
+                        <img id="qp-img" class="viewer-img" src="" alt="Exam Question Paper" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="viewer-footer">
+                    <div class="legend-group">
+                        <span class="legend-item"><span class="legend-dot green"></span> Full Marks</span>
+                        <span class="legend-item"><span class="legend-dot amber"></span> Partial Credit</span>
+                        <span class="legend-item"><span class="legend-dot red"></span> Lost Marks</span>
+                    </div>
+                    <div class="viewer-hint">Drag to pan when zoomed · Click ⛶ for high-res view</div>
                 </div>
             </div>
 
-            <!-- Right: Question Breakdown & Marks -->
+            <!-- Right Column: Evaluation Summary & Teacher Co-Pilot -->
             <div class="breakdown-card">
                 <div class="card-header">
-                    <span>📊 Evaluation Summary & Breakdown</span>
-                    <small style="color: var(--accent-green); font-weight: 700;">Deterministic Mark</small>
+                    <div class="card-header-title">
+                        <span>📊 Evaluation Summary &amp; Teacher Co-Pilot</span>
+                    </div>
+                    <button class="btn btn-approve" id="approve-all-btn" onclick="approveAllMarks()">
+                        ✓ Approve All Marks
+                    </button>
                 </div>
+
                 <div class="breakdown-body">
+                    <!-- Hero Score Card -->
                     <div class="score-hero">
-                        <div style="font-size: 0.82rem; color: var(--text-muted);">Suggested Total Score</div>
-                        <div class="score-main-val" id="score-display">0.0 / 10.0</div>
-                        <div class="score-meta" id="confidence-display">Ready for evaluation</div>
+                        <div class="score-hero-top">
+                            <span class="score-hero-label">Suggested Total Score</span>
+                            <span class="status-badge" id="eval-status-badge">AI Suggested · Review Pending</span>
+                        </div>
+                        <div class="score-hero-main">
+                            <div class="score-main-val" id="score-display">10.5 / 20.0</div>
+                            <div class="score-percentage-pill" id="score-percent">52.5%</div>
+                        </div>
+                        <div class="score-meta" id="student-meta-display">
+                            Student: P. Maheedhar (Class VIII E.R) · Physics Periodic Test-II
+                        </div>
                     </div>
 
-                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">Question-by-Question Marks & Reasons</div>
-                    <div id="questions-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <!-- Dynamically rendered -->
+                    <!-- Handwriting Assessment Hero Banner -->
+                    <div class="handwriting-banner" id="handwriting-banner">
+                        <div class="handwriting-pill">
+                            <span class="hw-icon">✍️</span>
+                            <span class="hw-score" id="hw-score-badge">Handwriting: 6/10 (Average)</span>
+                        </div>
+                        <div class="hw-note" id="hw-note-text">
+                            Practice standard spelling &amp; line consistency (e.g. friction, muscular, magnetic)
+                        </div>
                     </div>
 
-                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-top: 0.5rem;">Raw Engine Report Card</div>
-                    <div class="card-markdown" id="card-markdown">Waiting for evaluation run…</div>
+                    <!-- Section Subhead -->
+                    <div class="section-subhead">
+                        <span>Question-by-Question Marks &amp; Explainable Deductions</span>
+                        <small style="color: var(--text-muted);">Reactive Co-Pilot</small>
+                    </div>
+
+                    <!-- Questions List Container -->
+                    <div id="questions-list" class="questions-list">
+                        <!-- Dynamically rendered by live.js -->
+                    </div>
+
+                    <!-- Raw Engine Report Card -->
+                    <div class="raw-card-section">
+                        <div class="raw-card-header">
+                            <span>🤖 Raw Engine Report Card</span>
+                            <small style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">Deterministic Summary</small>
+                        </div>
+                        <div class="card-markdown" id="card-markdown">Waiting for evaluation run…</div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Image Lightbox Modal for High-Res Zoom -->
+    <div class="image-modal" id="image-modal" onclick="closeFullscreenModal(event)">
+        <div class="image-modal-content">
+            <button class="modal-close-btn" onclick="closeFullscreenModal()">&times;</button>
+            <img id="modal-img" src="" alt="High Resolution Script Inspection">
+            <div class="modal-caption" id="modal-caption">AI Vector Annotated Script (Full Resolution)</div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
     <script src="/live.js"></script>
