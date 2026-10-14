@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradingAI Co-Pilot — Live AI Exam Grading Demo</title>
+    <title>GradingAI — Live Academic Intelligence Demo</title>
     <meta name="description" content="Live AI-assisted descriptive exam correction co-pilot. Real handwriting recognition, rubric matching, and annotated vector script generation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 </head>
-<body>
+<body class="minimal-mode" data-view="minimal">
 
     <!-- Top Navigation Header -->
     <header>
@@ -20,9 +20,19 @@
             <img class="brand-logo" src="/pen-logo-white.svg" alt="GradingAI Logo" width="32" height="32">
             <div>
                 <div class="brand-title">GradingAI Co-Pilot</div>
-                <div class="brand-sub">Real Deterministic AI Grading Engine</div>
+                <div class="brand-sub">Academic Intelligence & Evaluation Engine</div>
             </div>
         </a>
+
+        <!-- Segmented Mode Switcher Control -->
+        <div class="view-mode-toggle" id="view-mode-toggle" role="group" aria-label="View Mode Switcher">
+            <button type="button" class="mode-toggle-btn active" id="btn-mode-minimal" data-mode="minimal" onclick="setViewMode('minimal')">
+                <span>⚡ Minimal View</span>
+            </button>
+            <button type="button" class="mode-toggle-btn" id="btn-mode-full" data-mode="full" onclick="setViewMode('full')">
+                <span>📊 Full Analytics</span>
+            </button>
+        </div>
 
         <div class="nav-links">
             <div class="engine-status-pill" id="engine-status-pill">
@@ -30,7 +40,9 @@
                 <span id="engine-status-txt">Checking engine status…</span>
             </div>
             <a href="/" class="nav-link">🏠 Home</a>
-            <a href="/demo.html" class="nav-link">📊 Enterprise Walkthrough</a>
+            <a href="/#how-it-works" class="nav-link">The 5 Stages</a>
+            <a href="/#pricing" class="nav-link">Pricing</a>
+            <a href="/#contact" class="nav-link" style="color: #F97316; font-weight: 700;">Book Free Trial</a>
         </div>
     </header>
 
@@ -39,7 +51,7 @@
         <div class="notice-banner offline" id="offline-banner" style="display: none;">
             <div class="notice-content">
                 <div class="notice-title">⚠️ Live Backend Engine Offline</div>
-                <div class="notice-desc">Displaying verified Academic Heights Class VIII Physics PT-II evaluation snapshot (Deterministic 10.5/20.0 score).</div>
+                <div class="notice-desc">Displaying verified Academic Heights Class VIII Physics PT-II evaluation snapshot (Deterministic 4.0 / 6.0 score).</div>
             </div>
             <button class="btn btn-outline btn-sm" onclick="checkEngineHealth()">🔄 Retry Connection</button>
         </div>
@@ -112,7 +124,7 @@
                     <div class="preset-badge">⚡ Quick Exam Preset</div>
                     <h4 class="preset-title">Academic Heights Physics PT-II</h4>
                     <p class="preset-desc">
-                        Instantly load real Class VIII Physics Periodic Test (20 Marks) with student handwriting script.
+                        Instantly load real Class VIII Physics Periodic Test (6.0 Marks) with student handwriting script.
                     </p>
                     <button class="btn btn-preset" id="preset-btn">
                         <span class="preset-icon">✨</span>
@@ -253,22 +265,40 @@
                 </div>
 
                 <div class="breakdown-body">
-                    <!-- Hero Score Card -->
+                    <!-- Compact 1-Line Score & Handwriting Hero Bar (Minimal Mode) -->
+                    <div class="minimal-hero-strip" id="minimal-hero-strip">
+                        <div class="minimal-summary-bar">
+                            <span class="exam-title-badge">Class VIII Physics PT-II</span>
+                            <span class="hero-dot">·</span>
+                            <span class="student-name-badge" id="min-hero-student-live">P. Maheedhar</span>
+                            <span class="hero-dot">·</span>
+                            <span class="score-summary-badge">Score: <strong id="min-hero-score-live">4.0</strong> / <span id="min-hero-max-live">6.0</span> (<span id="min-hero-pct-live">66.7%</span>)</span>
+                            <span class="hero-dot">·</span>
+                            <span class="hw-summary-badge" id="min-hero-hw-live">✍️ <strong>6/10</strong> Average</span>
+                        </div>
+                        <div class="hero-right-actions">
+                            <button type="button" class="btn btn-approve btn-sm" onclick="approveAllMarks()">
+                                ✓ Approve All Marks
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hero Score Card (Full Mode) -->
                     <div class="score-hero">
                         <div class="score-hero-top">
                             <span class="score-hero-label">Suggested Total Score</span>
                             <span class="status-badge" id="eval-status-badge">AI Suggested · Review Pending</span>
                         </div>
                         <div class="score-hero-main">
-                            <div class="score-main-val" id="score-display">10.5 / 20.0</div>
-                            <div class="score-percentage-pill" id="score-percent">52.5%</div>
+                            <div class="score-main-val" id="score-display">4.0 / 6.0</div>
+                            <div class="score-percentage-pill" id="score-percent">66.7%</div>
                         </div>
                         <div class="score-meta" id="student-meta-display">
                             Student: P. Maheedhar (Class VIII E.R) · Physics Periodic Test-II
                         </div>
                     </div>
 
-                    <!-- Handwriting Assessment Hero Banner -->
+                    <!-- Handwriting Assessment Hero Banner (Full Mode) -->
                     <div class="handwriting-banner" id="handwriting-banner">
                         <div class="handwriting-pill">
                             <span class="hw-icon">✍️</span>
@@ -290,7 +320,7 @@
                         <!-- Dynamically rendered by live.js -->
                     </div>
 
-                    <!-- Raw Engine Report Card -->
+                    <!-- Raw Engine Report Card (Full Mode) -->
                     <div class="raw-card-section">
                         <div class="raw-card-header">
                             <span>🤖 Raw Engine Report Card</span>

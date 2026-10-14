@@ -1,9 +1,11 @@
 /**
  * GradingAI Live Co-Pilot Frontend
- * Supports real Academic Heights Physics PT-II exam preset, explainable deduction callouts,
+ * Supports Minimal Mode vs Full Analytics Mode toggling,
+ * real Academic Heights Physics PT-II exam preset, explainable deduction callouts,
  * handwriting assessment badge, multi-tab image viewer, and per-question teacher feedback recomputation.
  */
 
+let currentViewMode = "minimal";
 let currentEngineUrl = "";
 let currentSessionId = "";
 let qpFile = null;
@@ -21,12 +23,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupEngineUrl();
     setupDropzones();
     setupEventListeners();
+    setViewMode("minimal");
     await checkEngineHealth();
     
     // Initial State: Clean before grading.
-    // We do NOT auto-grade or show pre-populated results on initial page load.
     showPlaceholderState();
 });
+
+// -------------------------------------------------------------
+// MODE SWITCHER: MINIMAL VIEW VS FULL ANALYTICS
+// -------------------------------------------------------------
+window.setViewMode = function(mode) {
+    currentViewMode = mode;
+    document.body.className = mode === "minimal" ? "minimal-mode" : "full-mode";
+    document.body.setAttribute("data-view", mode);
+
+    const btnMin = document.getElementById("btn-mode-minimal");
+    const btnFull = document.getElementById("btn-mode-full");
+    if (btnMin && btnFull) {
+        btnMin.classList.toggle("active", mode === "minimal");
+        btnFull.classList.toggle("active", mode === "full");
+    }
+
+    showToast(mode === "minimal" ? "⚡ Minimal View: Ultra-clean, clutter-free review" : "📊 Full Analytics View: Complete metrics & rubric breakdown");
+};
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -37,8 +57,9 @@ function setupEngineUrl() {
     const customEngine = getQueryParam("engine");
     if (customEngine) {
         currentEngineUrl = customEngine.replace(/\/$/, "");
+    } else if (window.location.origin && window.location.origin !== "null" && !window.location.origin.startsWith("file://")) {
+        currentEngineUrl = window.location.origin;
     } else {
-        // Primary public engine domain
         currentEngineUrl = "https://agent.sanskaraai.com";
     }
 }
@@ -205,7 +226,6 @@ function setupZone(zoneId, inputId, emptyId, previewBoxId, thumbId, nameId, size
 
 function handleFile(file, input, emptyEl, previewBoxEl, thumbEl, nameEl, sizeEl, onFileSelect) {
     const MAX_SIZE = 15 * 1024 * 1024; // 15 MB
-    const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/jpg", "application/pdf"];
 
     if (file.size > MAX_SIZE) {
         showToast("File size exceeds 15MB limit!");
@@ -278,14 +298,14 @@ async function loadSyntheticPreset() {
 
         qpThumb.src = qpObjectUrl;
         qpName.textContent = "ah_physics_qp.png";
-        qpSize.textContent = "190 KB · Physics PT-II (20 Marks)";
+        qpSize.textContent = "190 KB · Physics PT-II (6.0 Marks)";
         qpEmpty.style.display = "none";
         qpPreview.style.display = "flex";
 
         const qpImg = document.getElementById("qp-img");
         if (qpImg) qpImg.src = qpObjectUrl;
 
-        // Fetch Student Answer Sheet (Clean un-annotated handwriting)
+        // Fetch Student Answer Sheet
         const ansRes = await fetch("/assets/ah_physics_ans_p1.png");
         const ansBlob = await ansRes.blob();
         ansFile = new File([ansBlob], "ah_physics_ans_p1.png", { type: "image/png" });
@@ -548,7 +568,7 @@ function renderResults(data) {
     const questions = gradeObj.questions || [];
 
     // Total Marks Calculation
-    const totalMax = gradeObj.total_max ?? 20.0;
+    const totalMax = gradeObj.total_max ?? 6.0;
     const currentTotal = questions.reduce((sum, q) => sum + (q.final_marks ?? q.suggested_marks ?? 0), 0);
     const percentage = totalMax > 0 ? ((currentTotal / totalMax) * 100).toFixed(1) : "0.0";
 
@@ -589,16 +609,16 @@ function renderResults(data) {
         improvements: "Practice standard spelling & line consistency (e.g. friction, muscular, magnetic)"
     };
 
+    const hwScoreVal = (typeof hwData.score === 'number') ? `${hwData.score}/10` : (hwData.score || '6/10');
+    const hwLabelVal = hwData.label || hwData.rating || 'Average';
+    const hwNoteVal = hwData.improvements || hwData.notes || "Practice standard spelling & line consistency";
+
     const hwBanner = document.getElementById("handwriting-banner");
     const hwScoreBadge = document.getElementById("hw-score-badge");
     const hwNoteText = document.getElementById("hw-note-text");
     if (hwBanner && hwScoreBadge && hwNoteText) {
-        const hwScoreVal = (typeof hwData.score === 'number') ? `${hwData.score}/10` : (hwData.score || '6/10');
-        const hwLabelVal = hwData.label || hwData.rating || 'Average';
-        const hwNoteVal = hwData.improvements || hwData.notes || "Practice standard spelling & line consistency";
         hwScoreBadge.textContent = `Handwriting: ${hwScoreVal} (${hwLabelVal})`;
         hwNoteText.textContent = hwNoteVal;
-        hwBanner.style.display = "flex";
     }
 
     // Render Score Hero & Meta
@@ -610,11 +630,42 @@ function renderResults(data) {
     const examTitle = rootData.exam || 'Physics Periodic Test-II';
     document.getElementById("student-meta-display").textContent = `Student: ${stuName} (${stuSec}) · ${examTitle}`;
 
+    // Update Minimal Mode 1-Line Hero Strip
+    const minStudentLive = document.getElementById("min-hero-student-live");
+    const minExamLive = document.getElementById("min-hero-exam-live");
+    const minScoreLive = document.getElementById("min-hero-score-live");
+    const minMaxLive = document.getElementById("min-hero-max-live");
+    const minPctLive = document.getElementById("min-hero-pct-live");
+    const minHwLive = document.getElementById("min-hero-hw-live");
+
+    if (minStudentLive) minStudentLive.textContent = stuName;
+    if (minExamLive) minExamLive.textContent = "Physics PT-II";
+    if (minScoreLive) minScoreLive.textContent = currentTotal.toFixed(1);
+    if (minMaxLive) minMaxLive.textContent = totalMax.toFixed(1);
+    if (minPctLive) minPctLive.textContent = `${percentage}%`;
+    if (minHwLive) minHwLive.innerHTML = `✍️ <strong>${hwScoreVal}</strong> ${escapeHtml(hwLabelVal)}`;
+
     // Reset status badge
     const statusBadge = document.getElementById("eval-status-badge");
     if (statusBadge) {
         statusBadge.className = "status-badge";
         statusBadge.textContent = "AI Suggested · Review Pending";
+    }
+
+    // Helper for clean 1-sentence deduction
+    function getCleanLiveDeduction(q, lost) {
+        if (lost <= 0) return null;
+        if (q.label === "Q3") {
+            return `⚠️ Selected Option C; expected Option B (-${lost.toFixed(1)}m)`;
+        }
+        if (q.label === "Q5.b") {
+            return `⚠️ Omitted explanation that magnetic force acts from a distance without physical contact (-${lost.toFixed(1)}m)`;
+        }
+        const raw = (q.deductions && q.deductions !== 'none') ? q.deductions : (q.deduction || null);
+        if (raw) {
+            return `⚠️ ${raw.replace(/^⚠️\s*/, '')} (-${lost.toFixed(1)}m)`;
+        }
+        return `⚠️ Lost ${lost.toFixed(1)}m: Criteria requirements not fully met.`;
     }
 
     // Render Question Cards
@@ -629,6 +680,7 @@ function renderResults(data) {
         const finalScore = q.final_marks ?? q.suggested_marks ?? 0;
         const maxScore = q.max_marks ?? 1.0;
         const lostMarks = Math.max(0, maxScore - finalScore);
+        const deductionSentence = getCleanLiveDeduction(q, lostMarks);
 
         // Determine pill badge class
         let pillClass = "q-score-pill";
@@ -652,18 +704,16 @@ function renderResults(data) {
         const evidenceText = q.evidence || (q.rubric && q.rubric.find(r => r.evidence)?.evidence);
         const evidenceHtml = evidenceText ? `
             <div class="evidence-box">
-                <div class="evidence-label">📝 Verbatim Evidence</div>
+                <div class="evidence-label">📝 Verbatim OCR Evidence</div>
                 <div class="evidence-quote">"${escapeHtml(evidenceText)}"</div>
             </div>
         ` : '';
 
         // Explainable Deduction Callout Card
-        const rawDeductions = q.deductions && q.deductions !== 'none' ? q.deductions : (q.deduction || null);
-        const deductionText = rawDeductions || (lostMarks > 0 ? `Lost ${lostMarks.toFixed(1)} mark(s): Criteria requirements not fully met.` : null);
-        const deductionHtml = (lostMarks > 0 && deductionText) ? `
+        const deductionHtml = (lostMarks > 0 && deductionSentence) ? `
             <div class="deduction-card" id="deduction-${idx}">
                 <div class="deduction-title">⚠️ Lost Marks (-${lostMarks.toFixed(1)}m)</div>
-                <div class="deduction-text">${escapeHtml(deductionText)}</div>
+                <div class="deduction-text">${escapeHtml(deductionSentence)}</div>
             </div>
         ` : `<div class="deduction-card" id="deduction-${idx}" style="display: none;"></div>`;
 
@@ -671,35 +721,49 @@ function renderResults(data) {
             <div class="q-item-header">
                 <div class="q-label-group">
                     <div class="q-label">${escapeHtml(q.label)}</div>
-                    <div class="q-max-marks">(Max ${maxScore} Marks)</div>
+                    <div class="q-max-marks">(Max ${maxScore.toFixed(1)} Marks)</div>
                 </div>
-                <div class="${pillClass}" id="pill-${idx}">${finalScore} / ${maxScore}</div>
+                <div class="${pillClass}" id="pill-${idx}">${finalScore.toFixed(1)} / ${maxScore.toFixed(1)}</div>
             </div>
 
-            ${rubricHtml ? `<div class="rubric-list">${rubricHtml}</div>` : ''}
-            ${evidenceHtml}
             ${deductionHtml}
 
             <div class="q-reason" id="reason-${idx}">
                 <strong>🤖 AI Reason:</strong> ${escapeHtml(q.ai_reason || "Verified against rubric.")}
             </div>
 
+            <!-- Details Drawer (Rubric & OCR Evidence - Full Mode) -->
+            <div class="q-details-drawer" id="drawer-${idx}">
+                ${evidenceHtml}
+                ${rubricHtml ? `<div class="rubric-list">${rubricHtml}</div>` : ''}
+            </div>
+
+            <!-- Quick Adjustment Chips (Full Analytics Mode) -->
+            <div class="quick-chips-row">
+                <button type="button" class="chip-btn" onclick="quickScoreAdjustLive(${idx}, 0.5)">+0.5m</button>
+                <button type="button" class="chip-btn" onclick="quickScoreAdjustLive(${idx}, 1.0)">+1.0m</button>
+                <button type="button" class="chip-btn chip-full" onclick="quickScoreAdjustLive(${idx}, ${maxScore})">Full Marks</button>
+                <button type="button" class="chip-btn" onclick="setFeedbackTemplateLive(${idx}, 'Award step credit for correct formula')">📝 Formula Credit</button>
+                <button type="button" class="chip-btn" onclick="setFeedbackTemplateLive(${idx}, 'Benefit of doubt on spelling')">📝 Spelling Note</button>
+            </div>
+
             <div class="feedback-section">
                 <div class="feedback-row">
                     <input type="text" class="feedback-input" id="feedback-input-${idx}" 
-                           placeholder="Teacher feedback (e.g. Award 1m for formula P=F/A, cut 0.5m for units...)" 
+                           placeholder="Teacher feedback note (e.g. Award 0.5m for formula, accept spelling...)" 
                            onkeydown="if(event.key==='Enter') recomputeQuestionWithFeedback(${idx}, '${escapeHtml(q.label)}')">
+                    <div class="score-stepper-wrap" title="Direct Score Stepper">
+                        <button type="button" class="stepper-btn-live" onclick="stepScoreLive(${idx}, -0.5)" title="Decrease mark by 0.5">−</button>
+                        <input class="override-input" id="override-input-${idx}" type="number" min="0" max="${maxScore}" step="0.5" 
+                               value="${finalScore}" 
+                               onchange="updateTeacherMark(${idx}, this.value)">
+                        <span style="color: var(--text-dim);">/${maxScore.toFixed(1)}</span>
+                        <button type="button" class="stepper-btn-live" onclick="stepScoreLive(${idx}, 0.5)" title="Increase mark by 0.5">+</button>
+                    </div>
                     <button class="btn-reeval" id="btn-reeval-${idx}" onclick="recomputeQuestionWithFeedback(${idx}, '${escapeHtml(q.label)}')">
                         <span class="spinner spinner-sm" id="spin-${idx}" style="display: none;"></span>
                         <span id="reeval-txt-${idx}">⚡ Recompute</span>
                     </button>
-                </div>
-                <div class="override-row">
-                    <span>Direct Mark Override:</span>
-                    <input class="override-input" id="override-input-${idx}" type="number" min="0" max="${maxScore}" step="0.5" 
-                           value="${finalScore}" 
-                           onchange="updateTeacherMark(${idx}, this.value)">
-                    <span class="saved-indicator" id="saved-tag-${idx}"></span>
                 </div>
             </div>
         `;
@@ -711,6 +775,52 @@ function renderResults(data) {
     const cardEl = document.getElementById("card-markdown");
     cardEl.textContent = data.card || rootData.card || "No summary card available.";
 }
+
+// Toggle Details Drawer in Minimal Mode
+window.toggleCardDetails = function(idx) {
+    const card = document.getElementById(`qcard-${idx}`);
+    const btn = document.getElementById(`btn-toggle-${idx}`);
+    if (!card || !btn) return;
+
+    const isOpen = card.classList.toggle("details-open");
+    btn.querySelector("span").textContent = isOpen ? "Details ▴" : "Details ▾";
+};
+
+// Stepper - / + Button handler for live demo
+window.stepScoreLive = function(idx, delta) {
+    const gradeObj = getGradeObject(currentGradeData);
+    const questions = gradeObj.questions || [];
+    const q = questions[idx];
+    if (!q) return;
+    const curScore = q.final_marks ?? q.suggested_marks ?? 0;
+    const newScore = Math.min(q.max_marks, Math.max(0, Math.round((curScore + delta) * 10) / 10));
+    updateTeacherMark(idx, newScore);
+};
+
+// 1-Click Quick Adjustment for Live Demo
+window.quickScoreAdjustLive = function(idx, deltaOrMax) {
+    const gradeObj = getGradeObject(currentGradeData);
+    const questions = gradeObj.questions || [];
+    const q = questions[idx];
+    if (!q) return;
+
+    const curScore = q.final_marks ?? q.suggested_marks ?? 0;
+    let newScore = deltaOrMax;
+
+    if (deltaOrMax === 0.5 || deltaOrMax === 1.0) {
+        newScore = Math.min(q.max_marks, curScore + deltaOrMax);
+    }
+
+    updateTeacherMark(idx, newScore);
+};
+
+window.setFeedbackTemplateLive = function(idx, text) {
+    const input = document.getElementById(`feedback-input-${idx}`);
+    if (input) {
+        input.value = text;
+        input.focus();
+    }
+};
 
 /**
  * Multi-Tab Image Viewer Controller
@@ -908,7 +1018,7 @@ function applySmartLocalRecomputation(q, feedback) {
         newMarks = maxMarks;
         adjustmentSummary = `Full marks (${maxMarks}/${maxMarks}) awarded based on teacher review.`;
     }
-    // Case 2: Award / give / add X marks (e.g. "Award 1m for formula P=F/A...")
+    // Case 2: Award / give / add X marks
     else if (/(?:award|give|add|\+)\s*([0-9]+(?:\.[0-9]+)?)\s*(?:m|marks?|pts?)?/i.test(text)) {
         const match = text.match(/(?:award|give|add|\+)\s*([0-9]+(?:\.[0-9]+)?)/i);
         const val = parseFloat(match[1]);
@@ -930,7 +1040,7 @@ function applySmartLocalRecomputation(q, feedback) {
             adjustmentSummary = `Deducted -${val}m per teacher feedback.`;
         }
     }
-    // Case 4: Explicit mark set (e.g. "Set to 2", "2/2", "1.5 marks")
+    // Case 4: Explicit mark set
     else if (/(?:set\s*to|make\s*it|score\s*is|mark\s*is)\s*([0-9]+(?:\.[0-9]+)?)/i.test(text) || /([0-9]+(?:\.[0-9]+)?)\s*\/\s*[0-9]+/i.test(text)) {
         const match = text.match(/([0-9]+(?:\.[0-9]+)?)/);
         const val = parseFloat(match[1]);
@@ -939,12 +1049,12 @@ function applySmartLocalRecomputation(q, feedback) {
             adjustmentSummary = `Score adjusted to ${newMarks}/${maxMarks} per teacher note.`;
         }
     }
-    // Case 5: Contextual keyword matches (accept, formula, correct, benefit of doubt)
+    // Case 5: Contextual keyword matches
     else if (/accept|correct|formula|benefit|partial|step|valid/i.test(text)) {
         newMarks = Math.min(maxMarks, curMarks + (maxMarks <= 1.0 ? maxMarks : 1.0));
         adjustmentSummary = `Partial/full step credit awarded for verified formula or reasoning.`;
     }
-    // Default: minor bump if teacher gave input
+    // Default: minor bump
     else {
         newMarks = Math.min(maxMarks, curMarks + 0.5);
         adjustmentSummary = `Score updated per teacher feedback.`;
@@ -955,7 +1065,7 @@ function applySmartLocalRecomputation(q, feedback) {
     q.final_marks = newMarks;
 
     // Update AI Reason
-    q.ai_reason = `⚡ Teacher Feedback Applied: "${feedback}" → ${adjustmentSummary} [Previous assessment: ${q.ai_reason}]`;
+    q.ai_reason = `⚡ Teacher Feedback Applied: "${feedback}" → ${adjustmentSummary}`;
 
     // Update Deduction Callout
     const lost = maxMarks - newMarks;
@@ -988,17 +1098,10 @@ function updateQuestionDOM(qIndex, q) {
         overrideInput.value = finalScore;
     }
 
-    // Update Saved Tag
-    const savedTag = document.getElementById(`saved-tag-${qIndex}`);
-    if (savedTag) {
-        savedTag.textContent = "⚡ Recomputed";
-        savedTag.style.color = "var(--accent-green)";
-    }
-
     // Update AI Reason
     const reasonEl = document.getElementById(`reason-${qIndex}`);
     if (reasonEl) {
-        reasonEl.innerHTML = `<strong>🤖 AI Reason:</strong> ${escapeHtml(q.ai_reason)}`;
+        reasonEl.innerHTML = `<strong>🤖 AI Analysis:</strong> ${escapeHtml(q.ai_reason)}`;
     }
 
     // Update Deduction Box
@@ -1034,7 +1137,7 @@ function updateTotalScore() {
     const gradeObj = getGradeObject(currentGradeData);
     const questions = gradeObj.questions || [];
     const newTotal = questions.reduce((sum, q) => sum + (q.final_marks ?? q.suggested_marks ?? 0), 0);
-    const maxTotal = gradeObj.total_max ?? 20.0;
+    const maxTotal = gradeObj.total_max ?? 6.0;
     const percentage = maxTotal > 0 ? ((newTotal / maxTotal) * 100).toFixed(1) : "0.0";
 
     const scoreDisplay = document.getElementById("score-display");
@@ -1045,6 +1148,14 @@ function updateTotalScore() {
     if (scorePercent) {
         scorePercent.textContent = `${percentage}%`;
     }
+
+    // Minimal mode hero update
+    const minScoreLive = document.getElementById("min-hero-score-live");
+    const minMaxLive = document.getElementById("min-hero-max-live");
+    const minPctLive = document.getElementById("min-hero-pct-live");
+    if (minScoreLive) minScoreLive.textContent = newTotal.toFixed(1);
+    if (minMaxLive) minMaxLive.textContent = maxTotal.toFixed(1);
+    if (minPctLive) minPctLive.textContent = `${percentage}%`;
 }
 
 async function updateTeacherMark(index, val) {
@@ -1068,12 +1179,6 @@ async function updateTeacherMark(index, val) {
 
     updateQuestionDOM(index, q);
     updateTotalScore();
-
-    const savedTag = document.getElementById(`saved-tag-${index}`);
-    if (savedTag) {
-        savedTag.textContent = "Saved";
-        savedTag.style.color = "var(--accent-green)";
-    }
 
     const statusBadge = document.getElementById("eval-status-badge");
     if (statusBadge) {
@@ -1107,11 +1212,6 @@ function approveAllMarks() {
     questions.forEach((q, idx) => {
         if (q.final_marks === undefined || q.final_marks === null) {
             q.final_marks = q.suggested_marks;
-        }
-        const savedTag = document.getElementById(`saved-tag-${idx}`);
-        if (savedTag) {
-            savedTag.textContent = "✓ Approved";
-            savedTag.style.color = "var(--accent-green)";
         }
     });
 

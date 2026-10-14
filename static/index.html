@@ -1,992 +1,1180 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GradingAI Co-Pilot — AI-Powered Exam Correction for CBSE Schools & Colleges</title>
-    <meta name="description" content="GradingAI Co-Pilot reads students' handwritten answer papers, applies the marking rubric and suggests scores with a visible reason — cutting teacher review from ~20–25 minutes to ~2–3 minutes per script. Results in 1–2 days, not weeks. Free 100-paper pilot.">
-    <meta property="og:title" content="GradingAI Co-Pilot — Exam results in 1–2 days, not weeks">
-    <meta property="og:description" content="AI-assisted descriptive exam correction for Indian schools & colleges. Teacher-verified, court-compliant, zero new hardware.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/landing.css">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GradingAI — The Complete Academic Intelligence Platform for Schools</title>
+<meta content="GradingAI turns Indian school exam cycles into continuous academic intelligence. From question paper blueprints to 90% pre-graded handwritten scripts and personalized student learning recovery." name="description"/>
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+<style>
+    /* ============================================================
+       GRADINGAI MODERN NARRATIVE DESIGN SYSTEM
+       - Wide, breathable 1360px container (Zero edge-locking)
+       - Bright multi-themed canvas (White, warm slate, cream tint)
+       - Rich rounded cards (20-24px radius), soft shadows
+       - Minimum 18px body text for effortless reading
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <header class="nav" id="nav">
-      <div class="nav-inner">
-        <a class="brand" href="#top" aria-label="GradingAI Co-Pilot home">
-          <img class="brand-mark" src="/pen-logo.svg" alt="GradingAI Co-Pilot" width="34" height="34" aria-hidden="true">
-          <span class="brand-text">
-            <strong>GradingAI Co-Pilot</strong>
-            <small>AI-assisted exam correction</small>
-          </span>
-        </a>
+    :root {
+      --canvas: #FFFFFF;
+      --canvas-warm: #F8FAFC;
+      --canvas-tint: #FFF7ED;
+      --border-subtle: #E2E8F0;
+      --border-strong: #CBD5E1;
 
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
-          <span></span><span></span><span></span>
-        </button>
+      --text-main: #0F172A;
+      --text-muted: #334155;
+      --text-light: #64748B;
 
-        <nav class="nav-links" id="nav-links" aria-label="Primary">
-          <a href="#problem">Problem</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#features">Product</a>
-          <a href="#moat">Moat</a>
-          <a href="#roi">ROI</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#pilot">Pilot</a>
-          <a href="#faq">FAQ</a>
-          <a class="btn btn-ghost" href="/live.html">Try Live AI Demo</a>
-          <a class="btn btn-ghost" href="/demo.html">Enterprise Deck</a>
-          <a class="btn btn-primary" href="#contact">Book Free Pilot</a>
-        </nav>
-      </div>
-    </header>
+      --brand-navy: #0F2942;
+      --rust-orange: #C2410C;
+      --rust-light: #FFEDD5;
+      --emerald-green: #15803D;
+      --emerald-light: #DCFCE7;
 
-    <main id="main">
-      <!-- HERO -->
-      <section class="hero" id="top">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">For CBSE Schools &amp; Autonomous Colleges · Tirupati &amp; Hyderabad</p>
-            <h1>Exam results in <span class="accent">1–2 days</span>, not weeks.</h1>
-            <p class="lede">
-              Reads handwriting, applies your rubric, and suggests a score with the reason shown — then your
-              teacher approves in seconds. From <strong>20–25 min → ~2–3 min per script</strong>.
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-xl: 28px;
+
+      --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 8px 30px rgba(15, 41, 66, 0.07);
+      --shadow-lg: 0 20px 48px rgba(15, 41, 66, 0.11);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--canvas);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container: spacious 1360px max width */
+    .container {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Sections */
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-tint {
+      background-color: var(--canvas-warm);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-peach {
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF7ED 100%);
+    }
+
+    /* Typography */
+    .eyebrow {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--rust-orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--brand-navy);
+      max-width: 900px;
+    }
+
+    .section-sub {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      max-width: 820px;
+      line-height: 1.55;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--rust-orange);
+      color: #FFFFFF;
+      box-shadow: 0 4px 18px rgba(194, 65, 12, 0.28);
+    }
+
+    .btn-primary:hover {
+      background-color: #9A3412;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--brand-navy);
+      border: 2px solid var(--border-strong);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--canvas-warm);
+      border-color: var(--brand-navy);
+    }
+
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      color: var(--brand-navy);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 18px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--brand-navy);
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--rust-orange);
+      background: var(--rust-light);
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--brand-navy);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 80px 0 100px 0;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--brand-navy);
+    }
+
+    .hero-title span.highlight {
+      color: var(--rust-orange);
+    }
+
+    .hero-lede {
+      font-size: 21px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-top: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .hero-reassurance {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 28px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    .hero-reassurance span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Live Canvas Mockup in Hero */
+    .hero-mockup-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .mockup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 16px;
+    }
+
+    .mockup-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--emerald-green);
+    }
+
+    .mockup-status-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--emerald-green);
+      border-radius: 50%;
+    }
+
+    .mockup-img-wrap {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      background: #FAFAFA;
+    }
+
+    .mockup-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .mockup-overlay-tag {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--emerald-green);
+      border-left: 4px solid var(--emerald-green);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand-navy);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .mockup-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    /* Stats Grid */
+    .hero-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .hero-stat-box {
+      border-left: 3px solid var(--rust-orange);
+      padding-left: 18px;
+    }
+
+    .hero-stat-num {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--brand-navy);
+      line-height: 1;
+    }
+
+    .hero-stat-desc {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* ACT 1: THE STAFFROOM PROBLEM */
+    .problem-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow-card);
+      margin-top: 48px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 36px;
+    }
+
+    .pain-box {
+      background: var(--canvas-warm);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      border-top: 4px solid var(--border-strong);
+    }
+
+    .pain-box.highlight {
+      border-top-color: var(--rust-orange);
+      background: #FFFBF7;
+    }
+
+    .pain-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand-navy);
+      margin-bottom: 10px;
+    }
+
+    .pain-text {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ACT 2: THE 5-STAGE STORY OF ACADEMIC INTELLIGENCE */
+    .story-journey {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 54px;
+    }
+
+    .stage-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      box-shadow: var(--shadow-card);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .stage-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-strong);
+    }
+
+    .stage-card.reverse {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--rust-orange);
+      background: var(--rust-light);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stage-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--brand-navy);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .stage-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+
+    .stage-highlights {
+      list-style: none;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stage-highlights li {
+      font-size: 17px;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .stage-highlights li::before {
+      content: "✓";
+      color: var(--emerald-green);
+      font-weight: 800;
+    }
+
+    .stage-visual-box {
+      background: var(--canvas-warm);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+    }
+
+    /* ACT 3: EVIDENCE & CASE STUDY */
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-top: 48px;
+    }
+
+    .evidence-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .evidence-stat-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border-left: 4px solid var(--emerald-green);
+    }
+
+    .evidence-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--brand-navy);
+    }
+
+    .evidence-label {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ACT 4: PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 54px;
+      align-items: stretch;
+    }
+
+    .price-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 44px 36px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--rust-orange);
+      box-shadow: var(--shadow-lg);
+      background: #FFFFFF;
+    }
+
+    .featured-ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--rust-orange);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .price-tier-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--brand-navy);
+    }
+
+    .price-rate {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--brand-navy);
+      margin: 16px 0 8px 0;
+      line-height: 1;
+    }
+
+    .price-rate span {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .price-features {
+      list-style: none;
+      margin: 28px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .price-features li {
+      font-size: 16px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .price-features li::before {
+      content: "•";
+      color: var(--rust-orange);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .annual-callout {
+      background: #FFF7ED;
+      border: 1px solid #FFEDD5;
+      border-left: 6px solid var(--rust-orange);
+      border-radius: var(--radius-lg);
+      padding: 36px 44px;
+      margin-top: 48px;
+    }
+
+    .annual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      margin-top: 16px;
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .faq-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+
+    .faq-q {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--brand-navy);
+      margin-bottom: 12px;
+    }
+
+    .faq-a {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* FINAL CTA */
+    .cta-banner {
+      background: var(--brand-navy);
+      border-radius: var(--radius-xl);
+      padding: 72px 64px;
+      text-align: center;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-lg);
+      margin: 60px 0;
+    }
+
+    .cta-title {
+      font-size: 44px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-sub {
+      font-size: 20px;
+      color: var(--border-strong);
+      margin: 16px auto 36px auto;
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0;
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid, .stage-card, .stage-card.reverse, .evidence-grid, .pricing-grid, .faq-grid, .annual-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .hero-title { font-size: 40px; }
+      .section-title { font-size: 32px; }
+      .hero-stats-strip { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="container nav-inner">
+<a class="brand" href="#top">
+<img alt="GradingAI" height="34" src="pen-logo.svg" width="34"/>
+<div>
+<span class="brand-title">GradingAI</span>
+<span class="brand-badge">Academic Intelligence</span>
+</div>
+</a>
+<nav class="nav-links">
+<a href="#story">The 5 Stages</a>
+<a href="#evidence">Classroom Proof</a>
+<a href="#pricing">School Pricing</a>
+<a href="#faq">FAQ</a>
+<a class="btn btn-outline" href="live.html">Live AI Demo</a>
+<a class="btn btn-primary" href="#contact">Book Free 100-Paper Trial</a>
+</nav>
+</div>
+</header>
+<!-- HERO SECTION -->
+<section class="hero" id="top">
+<div class="container hero-grid">
+<div class="hero-left">
+<span class="eyebrow">Academic Intelligence for Indian Schools · Hyderabad, Telangana &amp; Andhra Pradesh</span>
+<h1 class="hero-title">Turn Exam Data into <span class="highlight">Academic Excellence &amp; Higher Board Results.</span></h1>
+<p class="hero-lede">We are not just a paper checking tool. GradingAI is the complete academic intelligence system that connects question paper blueprints, assisted step-wise evaluation, and deep cohort analytics — helping schools spot syllabus gaps, guide teachers, and fix weak topics before board exams.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#contact">Book Free 100-Paper Trial</a>
+<a class="btn btn-outline" href="live.html">▶ Watch Live AI Demo</a>
+<a class="btn btn-ghost" href="#story">Explore the 5-Stage Story ↓</a>
+</div>
+<div class="hero-reassurance">
+<span>✓ Real pen-and-paper writing preserved</span>
+<span>✓ Works with your existing office scanner</span>
+<span>✓ Syncs to your school ERP</span>
+</div>
+</div>
+<div class="hero-right">
+<div class="hero-mockup-card">
+<div class="mockup-header">
+<div>
+<strong style="font-size: 16px; color: var(--brand-navy);">Academic Heights · Class 8 Math</strong>
+<p style="font-size: 13px; color: var(--text-light);">Periodic Test-II · Real Student Answer Script</p>
+</div>
+<div class="mockup-status">
+<span class="mockup-status-dot"></span>
+<span>AI Checked &amp; Verified</span>
+</div>
+</div>
+<div class="mockup-img-wrap"><img alt="Real Academic Heights student script evaluated by GradingAI" onclick="openLightbox('assets/real/crop_bhavitha_q13.png', 'V. Bhavitha · Class 8 Math · Real Student Script')" src="assets/real/crop_bhavitha_q13.png" style="width: 100%; height: auto; object-fit: contain; max-height: 440px; cursor: pointer;"/>
+<div onclick="openLightbox('assets/real/crop_bhavitha_q13.png', 'V. Bhavitha · Class 8 Math · Real Student Script')" style="position: absolute; bottom: 12px; right: 12px; background: rgba(15, 41, 66, 0.9); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; cursor: pointer;">🔍 Click to zoom</div></div>
+<div class="mockup-footer">
+<span style="font-size: 14px; color: var(--text-muted);">Teacher Decision: <strong>Approved in 45 seconds</strong></span>
+<span style="font-size: 14px; font-weight: 700; color: var(--emerald-green);">Zero Summation Errors</span>
+</div>
+</div>
+</div>
+</div>
+<!-- STATS STRIP -->
+<div class="container hero-stats-strip">
+<div class="hero-stat-box">
+<div class="hero-stat-num">90%</div>
+<div class="hero-stat-desc">Less staffroom correction time for teachers</div>
+</div>
+<div class="hero-stat-box">
+<div class="hero-stat-num">1–2 Days</div>
+<div class="hero-stat-desc">Complete results + parent reports declared</div>
+</div>
+<div class="hero-stat-box">
+<div class="hero-stat-num">100%</div>
+<div class="hero-stat-desc">Offline pen-and-paper student writing preserved</div>
+</div>
+<div class="hero-stat-box">
+<div class="hero-stat-num">100 Papers</div>
+<div class="hero-stat-desc">Free live trial on your school's actual papers</div>
+</div>
+</div>
+</section>
+<!-- ACT 1: THE STAFFROOM PROBLEM -->
+<section class="section section-tint" id="problem">
+<div class="container">
+<span class="eyebrow">The Staffroom Reality</span>
+<h2 class="section-title">Every exam season brings the same staffroom chaos</h2>
+<p class="section-sub">Teachers carrying heavy bundles home late at night. Three weeks of waiting for results. And in the end, marks are just dead numbers on a report card.</p>
+<div class="problem-grid">
+<div class="pain-box">
+<div style="font-size: 28px; margin-bottom: 12px;">📚</div>
+<h3 class="pain-title">Late-Night Bundle Checking</h3>
+<p class="pain-text">A teacher checking 150 scripts spends 20–25 hours per exam cycle just reading lines, adding numbers on calculators, and writing red marks. It burns out your best teachers.</p>
+</div>
+<div class="pain-box">
+<div style="font-size: 28px; margin-bottom: 12px;">⏳</div>
+<h3 class="pain-title">3 Weeks of Waiting</h3>
+<p class="pain-text">By the time bundles are corrected, scores totaled, and marks entered into Excel sheets, the class has moved two chapters ahead. The feedback comes too late to help.</p>
+</div>
+<div class="pain-box highlight">
+<div style="font-size: 28px; margin-bottom: 12px;">❌</div>
+<h3 class="pain-title">A Mark is Dead Data</h3>
+<p class="pain-text">A student getting 32/50 has no idea why they failed. Parents come to PTMs frustrated, asking for re-evaluation. The school has no clear diagnostic evidence to show them.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ACT 2: THE 5-STAGE STORY OF ACADEMIC INTELLIGENCE -->
+<section class="section section-peach" id="story">
+<div class="container">
+<span class="eyebrow">The 5-Stage Story</span>
+<h2 class="section-title">How Academic Intelligence transforms your school</h2>
+<p class="section-sub">Follow the journey from the day the exam is scheduled to the afternoon parents attend the PTM.</p>
+<div class="story-journey">
+<!-- STAGE 1 -->
+<div class="stage-card">
+<div>
+<span class="stage-badge">Stage 01 · Question Paper Creation</span>
+<h3 class="stage-title">Teachers make balanced question papers in 2 minutes</h3>
+<p class="stage-desc">
+              Instead of spending entire weekends flipping through old guidebooks and typing in Word, teachers simply select the chapters and difficulty level. 
+              The system drafts a balanced CBSE or State board question paper, complete with official step-marking answer keys.
             </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary btn-lg" href="/live.html">▶ Try Live AI Grading</a>
-              <a class="btn btn-outline btn-lg" href="/demo.html">Enterprise Walkthrough</a>
-              <a class="btn btn-outline btn-lg" href="#contact">Book a Free 100-Paper Pilot</a>
-            </div>
-            <p class="fine-print">Zero new hardware · No new student app · Data stays in India</p>
-          </div>
-
-          <div class="hero-visual" id="hero-demo" aria-hidden="true">
-            <div class="live-canvas">
-              <div class="live-head">
-                <span>Script #TS-2026-9041</span>
-                <span class="chip chip-good">AI pre-grading</span>
-              </div>
-              <div class="live-stage">
-                <img src="/assets/handwritten_exam_script.jpg" alt="Scanned handwritten answer script being auto-graded">
-                <div class="live-inks" id="live-inks">
-                  <span class="ink ink-good" style="left:6%;top:16%;width:40%;height:11%;--d:0.2s">Q4(b) formula + substitution</span>
-                  <span class="ink ink-bad bad" style="left:52%;top:44%;width:42%;height:11%;--d:0.9s">unit missing in final step</span>
-                  <span class="ink ink-good" style="left:4%;top:72%;width:36%;height:11%;--d:1.5s">correct numerical answer</span>
-                </div>
-              </div>
-              <div class="live-scorebar">
-                <span>Suggested</span>
-                <strong id="hero-score">17</strong><span>/ 20</span>
-                <div class="bar"><i id="hero-bar"></i></div>
-                <span>conf 96%</span>
-              </div>
-              <div class="live-status" id="hero-status"><span class="s-dot"></span><span id="hero-status-txt">Auto-grading… reading script</span></div>
-            </div>
-            <div class="hero-chip chip-green">Auto-grading · in beta, free pilot</div>
-          </div>
-        </div>
-
-        <div class="container stats" id="stats">
-          <div class="stat"><strong data-count="90" data-suffix="%">0%</strong><span>less teacher time per script</span></div>
-          <div class="stat"><strong>1–2 days</strong><span>to declare results — vs 3–4 wks</span></div>
-          <div class="stat"><strong data-count="95" data-suffix="%">0%</strong><span>AI–human agreement on descriptive answers</span></div>
-          <div class="stat"><strong data-count="100">0</strong><span>free pilot papers, zero risk</span></div>
-        </div>
-      </section>
-
-      <!-- TWO WAYS -->
-      <section class="section section-tint" id="modes">
-        <div class="container">
-          <p class="eyebrow">Two ways to work</p>
-          <h2 class="section-title">Automated grading, or one-click sign-off</h2>
-
-          <div class="tabs" role="tablist" aria-label="Grading modes">
-            <button class="tab-btn active" data-panel="mode-auto" type="button" role="tab" aria-selected="true">Automated marking</button>
-            <button class="tab-btn" data-panel="mode-approve" type="button" role="tab" aria-selected="false">One-click sign-off</button>
-          </div>
-
-          <div class="tab-panel active mode-split" id="mode-auto">
-            <div class="mode-copy">
-              <h3>GradingAI pre-grades the whole batch</h3>
-              <p>
-                Reads every handwritten answer, checks it against the rubric, draws the ticks and crosses on the
-                exact lines, and suggests a score with the reason shown — zero teacher input until review.
-              </p>
-              <ul class="mini">
-                <li>Per-question marks against your scheme</li>
-                <li>Visible reason for every score</li>
-              </ul>
-            </div>
-            <div class="mode-visual">
-              <img src="/assets/handwritten_exam_script.jpg" alt="AI marking annotations on a scanned script">
-              <div class="mv-tag">✓ +4.0 formula &amp; steps correct · ✗ −1.5 unit missing</div>
-            </div>
-          </div>
-
-          <div class="tab-panel mode-split" id="mode-approve">
-            <div class="mode-copy">
-              <h3>Teacher approves every final mark</h3>
-              <p>
-                Review a script in seconds, override any score you disagree with, then approve. The score locks,
-                the pen-trail is committed, and it syncs straight to your ERP.
-              </p>
-              <ul class="mini">
-                <li><code>Enter</code> to approve the next page</li>
-                <li>Permanent, court-compliant audit trail</li>
-              </ul>
-            </div>
-            <div class="mode-visual">
-              <img src="/assets/handwritten_exam_script.jpg" alt="Teacher review and sign-off screen">
-              <div class="mv-tag">✓ Approved &amp; signed off · 17 / 20</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROBLEM -->
-      <section class="section" id="problem">
-        <div class="container">
-          <p class="eyebrow">The hidden cost of paper exams</p>
-          <h2 class="section-title">Today vs. with GradingAI</h2>
-          <p class="section-sub">Slide the toggle to see what a 1,000-student campus changes.</p>
-
-          <div class="cmp">
-            <div class="cmp-head">
-              <h3>Where the time, money and trust go</h3>
-              <div class="cmp-toggle" role="group" aria-label="Compare today vs GradingAI">
-                <button class="active" data-cmp="today" type="button">Today</button>
-                <button data-cmp="next" type="button">With GradingAI</button>
-              </div>
-            </div>
-
-            <div class="cmp-row">
-              <span class="k">Result declaration</span>
-              <span class="v today">3–4 weeks</span>
-              <span class="v next">1–2 days</span>
-            </div>
-            <div class="cmp-row">
-              <span class="k">Teacher time / script</span>
-              <span class="v today">20–25 min</span>
-              <span class="v next">2–3 min</span>
-            </div>
-            <div class="cmp-row">
-              <span class="k">Annual cost</span>
-              <span class="v today">₹18–25 Lakh</span>
-              <span class="v next">~₹1.8–2.5 Lakh</span>
-            </div>
-            <div class="cmp-row">
-              <span class="k">Teacher load / year</span>
-              <span class="v today">~20,400 hrs</span>
-              <span class="v next">~2,040 hrs</span>
-            </div>
-            <div class="cmp-row val">
-              <span class="k">Errors &amp; disputes</span>
-              <span class="v today">~3.4L re-verifications, 8–12% change</span>
-              <span class="v next">caught before sign-off</span>
-            </div>
-          </div>
-
-          <div class="callout">
-            <strong>Why the last on-screen marking died:</strong> teachers drew every tick by mouse —
-            <em>more work, zero intelligence.</em> GradingAI is not a PDF viewer.
-          </div>
-        </div>
-      </section>
-
-      <!-- HOW IT WORKS -->
-      <section class="section section-tint" id="how-it-works">
-        <div class="container">
-          <p class="eyebrow">How it works</p>
-          <h2 class="section-title">90% AI pre-grading + 10% teacher verification</h2>
-          <p class="section-sub">The machine does the heavy reading. The teacher stays in charge of every final mark.</p>
-
-          <div class="steps">
-            <article class="step">
-              <span class="step-num">1</span>
-              <h3>Scan</h3>
-              <p>QR-coded booklets run through the ADF scanner you already own — double-blind, no new hardware.</p>
-            </article>
-            <article class="step">
-              <span class="step-num">2</span>
-              <h3>AI pre-grades</h3>
-              <p>The model reads messy handwriting, checks the rubric, draws the ticks and suggests a score with the reason shown.</p>
-            </article>
-            <article class="step">
-              <span class="step-num">3</span>
-              <h3>Teacher approves</h3>
-              <p>Review in ~2–3 minutes per script, override anything, and hit <strong>Approve &amp; Sign Off</strong>.</p>
-            </article>
-          </div>
-
-          <div class="canvas-demo demo" id="canvas-demo">
-            <div class="canvas-head">
-              <div>
-                <p class="eyebrow">The Evaluator Canvas</p>
-                <h3>Watch it grade a real scanned paper</h3>
-              </div>
-              <div class="demo-ctl">
-                <div class="seg" role="group" aria-label="Annotation toggle">
-                  <button class="seg-btn active" data-mode="ai" type="button">AI marks on</button>
-                  <button class="seg-btn" data-mode="raw" type="button">Original scan</button>
-                </div>
-                <button class="demo-play" id="demo-play" type="button" aria-label="Play or pause grading demo">❚❚ Pause</button>
-              </div>
-            </div>
-            <div class="canvas-stage">
-              <img id="canvas-img" src="/assets/handwritten_exam_script.jpg" alt="Scanned handwritten physics answer script">
-              <div class="annotations" id="annotations" aria-hidden="true">
-                <span class="tag tag-good" style="left:6%;top:12%;width:44%;height:9%;--d:0.1s">✓ formula + substitution shown</span>
-                <span class="tag tag-bad" style="left:52%;top:14%;width:44%;height:8%;--d:0.8s">✗ unit missing</span>
-                <span class="tag tag-good" style="left:4%;top:40%;width:50%;height:8%;--d:1.4s">✓ free-body diagram labelled</span>
-                <span class="tag tag-bad" style="left:56%;top:44%;width:42%;height:8%;--d:2s">✗ arithmetic slip (16×3)</span>
-                <span class="tag tag-good" style="left:8%;top:64%;width:38%;height:8%;--d:2.6s">✓ correct numerical answer</span>
-                <span class="tag tag-bad" style="left:50%;top:66%;width:46%;height:8%;--d:3.2s">✗ conclusion not stated</span>
-              </div>
-            </div>
-            <p class="canvas-caption">AI marks pop in as it reads. Every mark carries a reason — human agreement ~95%.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- FEATURES -->
-      <section class="section" id="features">
-        <div class="container">
-          <p class="eyebrow">Product</p>
-          <h2 class="section-title">Built for the realities of Indian exam rooms</h2>
-
-          <div class="cards cards-3">
-            <article class="card">
-              <span class="card-icon">🛡️</span>
-              <h3>Double-blind masking</h3>
-              <p>
-                Roll numbers are unmasked automatically via pre-printed QR codes, so evaluators judge the
-                answer, not the student. No more partiality complaints.
-              </p>
-            </article>
-            <article class="card">
-              <span class="card-icon">⚖️</span>
-              <h3>Court-compliant audit trail</h3>
-              <p>
-                On sign-off, every vector tick and correction is flattened permanently into the PDF —
-                a physical-equivalent record for re-evaluation disputes and legal review.
-              </p>
-            </article>
-            <article class="card">
-              <span class="card-icon">🗂️</span>
-              <h3>Rubric reasoning, always visible</h3>
-              <p>
-                Each suggested mark is paired with the rubric line it matched. Your teachers see <em>why</em>,
-                so they trust the AI and can override it in one click.
-              </p>
-            </article>
-            <article class="card">
-              <span class="card-icon">⌨️</span>
-              <h3>Rapid keyboard workflow</h3>
-              <p>
-                <code>Enter</code> to approve and jump, <code>Tab</code> to override a score,
-                <code>Ctrl+Z</code> to undo a pen stroke. Clearing a batch becomes a rhythm, not a chore.
-              </p>
-            </article>
-            <article class="card">
-              <span class="card-icon">🔗</span>
-              <h3>ERP integration, zero new apps</h3>
-              <p>
-                Marks and feedback sync into your existing stack — <strong>MyCamu, Entab, EduSys</strong> or a
-                custom ERP — and show up in the student app they already use.
-              </p>
-            </article>
-            <article class="card">
-              <span class="card-icon">🇮🇳</span>
-              <h3>Data stays in India</h3>
-              <p>
-                End-to-end encryption, DPDP-aligned practices and hosting on Indian domestic cloud
-                (E2E Networks / AIC Cloud). Your students' data never leaves the country.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- STUDENT LOOP -->
-      <section class="section section-tint" id="student-loop">
-        <div class="container split">
-          <div class="split-copy">
-            <p class="eyebrow">The differentiator</p>
-            <h2 class="section-title">A mark is not feedback. This is.</h2>
-            <p class="lede">
-              Every corrected paper becomes a personal diagnostic report — so a "17/20" turns into
-              <strong>exactly what to study next</strong>.
+<ul class="stage-highlights">
+<li>100% aligned with CBSE, ICSE, and State syllabus guidelines</li>
+<li>Generates full step-marking schemes and answer keys automatically</li>
+<li>Teacher reviews, edits, and finalizes with one click</li>
+</ul>
+</div>
+<div class="stage-visual-box"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+<strong style="color: var(--brand-navy); font-size: 16px;">Actual Question Paper Created</strong>
+<span style="font-size: 12px; font-weight: 700; color: var(--rust-orange); background: var(--rust-light); padding: 3px 10px; border-radius: 4px;">CBSE Pattern · 50 Marks</span>
+</div>
+<div onclick="openLightbox('assets/real/real_ah_question_paper.png', 'Academic Heights · Class 8 Math Question Paper')" style="border: 2px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.06); position: relative; cursor: pointer;">
+<img alt="Real Academic Heights Question Paper" src="assets/real/crop_readable_qp.png" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block;"/>
+<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(15, 41, 66, 0.85); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">🔍 Click to read full paper</div>
+</div>
+<p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; text-align: center;"><strong>Read above:</strong> Academic Heights header, Class VIII, Math, 50 Marks, Section A blueprint.</p></div>
+</div>
+<!-- STAGE 2 -->
+<div class="stage-card reverse">
+<div class="stage-visual-box" style="text-align: center;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+<strong style="color: var(--brand-navy); font-size: 16px;">Real Student Handwriting on Paper</strong>
+<span style="font-size: 12px; font-weight: 700; color: var(--emerald-green); background: var(--emerald-light); padding: 3px 10px; border-radius: 4px;">Zero Screen Distraction</span>
+</div>
+<div onclick="openLightbox('assets/real/real_ah_raw_script.png', 'Academic Heights · Real Student Handwritten Answer Sheet')" style="border: 2px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.06); position: relative; cursor: pointer;">
+<img alt="Real Student Handwritten Answer Sheet" src="assets/real/crop_readable_raw.png" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block;"/>
+<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(15, 41, 66, 0.85); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">🔍 Click to read handwriting</div>
+</div>
+<p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; text-align: center;"><strong>Read above:</strong> Student B. Sudharshan, Class VIII, Date 22/08/26, actual pen writing.</p></div>
+<div>
+<span class="stage-badge">Stage 02 · The Exam Hall</span>
+<h3 class="stage-title">Students write on real paper with pen — zero screens</h3>
+<p class="stage-desc">
+              Board examinations will always be written on physical paper. Students must build handwriting speed, draw geometry diagrams, and show multi-step math working by hand. 
+              We never ask students to type on screens or take online quizzes. The classroom ritual remains 100% sacred.
             </p>
-            <ul class="checklist">
-              <li><strong>Concept mastery bars</strong> — which micro-topics are strong, which are weak.</li>
-              <li><strong>Error classification</strong> — conceptual gap, arithmetic slip, or presentation issue.</li>
-              <li><strong>Timestamped video lessons</strong> — a 5-minute clip on the exact sub-topic failed.</li>
-              <li><strong>NCERT citations</strong> — chapter and page references your students already own.</li>
-              <li><strong>Auto practice sheet</strong> — a 3-question remedial PDF built from their weak points.</li>
-            </ul>
-            <p class="fine-print">
-              Students ignore static downloads. So we link to videos and build practice they actually attempt —
-              a learning loop that compounds every exam.
+<ul class="stage-highlights">
+<li>Preserves handwriting stamina required for board examinations</li>
+<li>Supports geometry drawings, chemical equations, and cursive handwriting</li>
+<li>Zero student login friction — no devices or tablets required in class</li>
+</ul>
+</div>
+</div>
+<!-- STAGE 3 -->
+<div class="stage-card">
+<div>
+<span class="stage-badge" style="background: var(--emerald-light); color: var(--emerald-green);">Stage 03 · Fast Correction &amp; ERP Sync</span>
+<h3 class="stage-title">AI pre-checks the handwriting. Teacher approves in 1 minute.</h3>
+<p class="stage-desc">
+              The school clerk drops the bundle of 40 papers into the existing office scanner. In 3 minutes, the entire batch is scanned. 
+              Our AI reads each student's handwriting, awards step-by-step marks, and flags exact calculation slips. 
+              The teacher opens the screen, reviews the suggested marks, adjusts if needed, and clicks 'Approve'.
             </p>
-          </div>
-          <div class="split-visual">
-            <div class="mastery-card">
-              <h4>Concept Mastery — Physics · Sem IV</h4>
-              <div class="bar-row"><span>Moment of Inertia formulas</span><strong>96%</strong><div class="track"><i style="width:96%"></i></div></div>
-              <div class="bar-row"><span>Surface mass density integration</span><strong>41%</strong><div class="track"><i style="width:41%"></i></div></div>
-              <div class="bar-row"><span>Sign conventions &amp; units</span><strong>63%</strong><div class="track"><i style="width:63%"></i></div></div>
-              <div class="error-note">
-                <strong>Errors found</strong>
-                <p>• Q3(a): conceptual gap — density integration</p>
-                <p>• Q4(b): arithmetic slip — 16 × 3</p>
-              </div>
-              <div class="error-cta">🎯 Recommended: watch 3-min video on planar lamina integration + practice sheet Q2</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- MOAT -->
-      <section class="section" id="moat">
-        <div class="container">
-          <p class="eyebrow">Why not just ChatGPT?</p>
-          <h2 class="section-title">A chatbot grades a paper. We run an exam office.</h2>
-          <p class="section-sub">Pasting a paper into Gemini or ChatGPT gets you a guess — not a defensible, batch-wide evaluation. Here's the gap, and why it keeps widening.</p>
-
-          <div class="split">
-            <div>
-              <h3 class="moat-h">What a chatbot can't do</h3>
-              <ul class="moat-list">
-                <li><strong>No rubric engine</strong> — it won't allocate marks question-by-question against your scheme and show the reason for each one.</li>
-                <li><strong>No double-blind masking</strong> — no QR-decoded roll numbers, so no defence against partiality complaints.</li>
-                <li><strong>No audit trail</strong> — no flattened pen-mark PDF that survives re-evaluation and court review.</li>
-                <li><strong>No batch workflow</strong> — no valuation queues, dual-valuation routing or ERP sync for 6,000 scripts a month.</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="moat-h">Our moat: the feedback loop</h3>
-              <ul class="moat-list">
-                <li><strong>Every sign-off teaches the system.</strong> Each mark a teacher approves or overrides re-calibrates the rubric to your syllabus, your past papers and your students' handwriting.</li>
-                <li><strong>Accuracy compounds per campus.</strong> The more exams we grade with you, the closer AI–human agreement gets — already ~95% and rising.</li>
-                <li><strong>Switching costs rise.</strong> A competitor starts from zero grading history on your campus. We start from thousands of teacher-verified scripts.</li>
-                <li><strong>The student loop closes it.</strong> Grades become diagnostics → diagnostics reveal what students fail → teaching sharpens → the next exam scores better. That data keeps compounding.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="callout">
-            Trust is built one approved mark at a time — which is exactly why our accuracy can't be copy-pasted.
-          </div>
-        </div>
-      </section>
-
-      <!-- ROI -->
-      <section class="section" id="roi">
-        <div class="container">
-          <p class="eyebrow">Principal / COE view</p>
-          <h2 class="section-title">What is your teachers' time really costing?</h2>
-          <p class="section-sub">A teacher spends 20–25 minutes on each descriptive script — most of it re-reading and re-totalling. Calculated monthly, forecast to a year. Adjust the numbers for your campus.</p>
-
-          <div class="roi-layout">
-            <form class="roi-form card" id="roi-form">
-              <label>Total students
-                <input name="students" type="number" min="1" value="1000">
-              </label>
-              <label>Scripts per student, per month
-                <input name="scripts_per_month" type="number" min="1" value="6">
-              </label>
-              <label>Manual minutes per script
-                <input name="manual_min" type="number" min="1" value="20">
-              </label>
-              <label>GradingAI review minutes per script
-                <input name="ai_min" type="number" min="1" value="3">
-              </label>
-              <label>Teacher cost per hour (₹)
-                <input name="teacher_rate" type="number" min="1" value="300">
-              </label>
-              <label>Days to declare results today
-                <input name="current_days" type="number" min="1" value="30">
-              </label>
-              <label>Days with GradingAI
-                <input name="projected_days" type="number" min="1" value="2">
-              </label>
-              <button class="btn btn-primary" type="submit">Calculate teacher time</button>
-            </form>
-
-            <div class="roi-results">
-              <div class="result-card"><span>Teacher hours freed / month</span><strong id="roi-hours-month">1,700 hrs</strong><small>returned to teaching, not marking</small></div>
-              <div class="result-card"><span>₹ value of freed time / month</span><strong id="roi-value-month">₹5.1 Lakh</strong><small>at ₹300 / hour</small></div>
-              <div class="result-card"><span>Annual forecast</span><strong id="roi-value-year">₹61.2 Lakh</strong><small>≈ 20,400 hrs / year returned</small></div>
-              <div class="result-card"><span>Result declaration</span><strong id="roi-days">28 days faster</strong><small>30 days → 2 days</small></div>
-            </div>
-          </div>
-
-          <div class="callout callout-slim">
-            GradingAI is priced per enrolled student, per month — predictable, and based on your total student strength.
-            Try the free 100-paper pilot and measure these numbers on your own scripts before committing a rupee.
-          </div>
-        </div>
-      </section>
-
-      <!-- COMPLIANCE -->
-      <section class="section section-tint" id="compliance">
-        <div class="container compliance">
-          <p class="eyebrow">Compliance &amp; privacy</p>
-          <h2 class="section-title">Legal, secure, and accountable by design</h2>
-          <div class="badges">
-            <div class="badge"><strong>DPDP</strong><span>2023 data protection aligned</span></div>
-            <div class="badge"><strong>E2E</strong><span>encryption in transit &amp; at rest</span></div>
-            <div class="badge"><strong>🇮🇳</strong><span>Indian domestic cloud hosting</span></div>
-            <div class="badge"><strong>⚖️</strong><span>auditable evaluation trail</span></div>
-            <div class="badge"><strong>🧑‍🏫</strong><span>teacher sign-off on every paper</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PRICING -->
-      <section class="section" id="pricing">
-        <div class="container">
-          <p class="eyebrow">Pricing</p>
-          <h2 class="section-title">Honest, per-student pricing</h2>
-          <p class="section-sub">Per enrolled student, per month — so the price scales naturally with your total student strength. No surprise setup fees.</p>
-
-          <div class="cards cards-3 price-cards">
-            <article class="card price">
-              <h3>Pilot</h3>
-              <p class="price-amt">₹0<span>/ 100 papers</span></p>
-              <ul>
-                <li>100 real papers, 3-day turnaround</li>
-                <li>AI pre-grading + teacher review</li>
-                <li>Accuracy &amp; teacher-time report for your COE</li>
-              </ul>
-              <a class="btn btn-outline" href="#contact">Start pilot</a>
-            </article>
-            <article class="card price featured">
-              <h3>School</h3>
-              <p class="price-amt">₹75–100<span>/ student / month</span></p>
-              <ul>
-                <li>All evaluator canvas features</li>
-                <li>Student diagnostic reports</li>
-                <li>MyCamu / Entab sync</li>
-                <li>Email &amp; WhatsApp support</li>
-              </ul>
-              <a class="btn btn-primary" href="#contact">Get a quote</a>
-            </article>
-            <article class="card price">
-              <h3>College / University</h3>
-              <p class="price-amt">₹100–150<span>/ student / month</span></p>
-              <ul>
-                <li>Everything in School, plus</li>
-                <li>COE compliance &amp; audit module</li>
-                <li>Custom ERP integration</li>
-                <li>Dedicated account manager</li>
-              </ul>
-              <a class="btn btn-outline" href="#contact">Talk to us</a>
-            </article>
-          </div>
-
-          <div class="tier-strip">
-            <div class="tier"><strong>&lt; 500 students</strong><span>top of band</span></div>
-            <div class="tier"><strong>500 – 2,000 students</strong><span>mid band</span></div>
-            <div class="tier"><strong>2,000+ students</strong><span>bottom of band</span></div>
-          </div>
-
-          <p class="fine-print center">The per-student rate decreases as total enrolment grows — a 2,000+ student campus pays less per student than a 300-student school. The exact rate is confirmed after the free pilot.</p>
-        </div>
-      </section>
-
-      <!-- PILOT -->
-      <section class="section section-tint" id="pilot">
-        <div class="container">
-          <p class="eyebrow">The offer</p>
-          <h2 class="section-title">Free 100-paper campus pilot — zero risk</h2>
-          <p class="section-sub">Take one recently completed internal mock exam and let us prove the accuracy on your own papers.</p>
-
-          <div class="timeline">
-            <article class="tl-step">
-              <span class="tl-day">Day 1</span>
-              <h3>Scan 100 papers</h3>
-              <p>Use your existing campus scanner. QR-coded, double-blind, nothing leaves your campus servers.</p>
-            </article>
-            <article class="tl-step">
-              <span class="tl-day">Day 2</span>
-              <h3>Teachers review</h3>
-              <p>Three senior faculty try the 1-click evaluation portal on real answer scripts — no training needed.</p>
-            </article>
-            <article class="tl-step">
-              <span class="tl-day">Day 3</span>
-              <h3>Accuracy &amp; savings review</h3>
-              <p>We compare AI marks vs your corrections, collect teacher feedback, and present the ROI case to your Principal &amp; COE.</p>
-            </article>
-          </div>
-
-          <div class="callout">
-            <strong>100% free. 100 papers. 3 days.</strong> You keep every report we generate — even if you never sign with us.
-          </div>
-        </div>
-      </section>
-
-      <!-- PITCH DECK GALLERY -->
-      <section class="section" id="deck">
-        <div class="container">
-          <p class="eyebrow">Pitch deck</p>
-          <h2 class="section-title">The full story, slide by slide</h2>
-          <p class="section-sub">Flip through the complete 16-slide deck we present to principals and COEs — or download it.</p>
-
-          <div class="deck-gallery">
-            <div class="deck-main">
-              <img id="deck-img" src="/assets/slides/slide-01.jpg" alt="Pitch deck slide">
-              <div class="deck-controls">
-                <button class="btn btn-ghost" id="deck-prev" type="button" aria-label="Previous slide">← Prev</button>
-                <span id="deck-counter">1 / 16</span>
-                <button class="btn btn-ghost" id="deck-next" type="button" aria-label="Next slide">Next →</button>
-                <a class="btn btn-primary" href="/assets/gradingai-pitch-deck.pdf" download>⬇ Download PDF</a>
-              </div>
-            </div>
-            <div class="deck-thumbs" id="deck-thumbs" role="list" aria-label="Slide thumbnails"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section class="section section-tint" id="faq">
-        <div class="container faq-wrap">
-          <p class="eyebrow">FAQ</p>
-          <h2 class="section-title">Questions principals ask us</h2>
-
-          <div class="faq-list">
-            <details class="faq-item" open>
-              <summary>What about messy handwriting? Will it misread students?</summary>
-              <p>
-                Our hybrid OCR + vision pipeline is built for Indian handwriting styles and messy scans.
-                Independent evaluations put AI–human agreement at ~95% on descriptive answers — and higher
-                when teachers calibrate the rubric on a sample first. Crucially, nothing is final until a
-                teacher signs off — a misread mark is caught and corrected in seconds, not weeks.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>Does this replace our teachers?</summary>
-              <p>
-                No. It removes ~90% of the correction time that is re-reading, re-totalling and writing the same
-                comments — turning ~20–25 minutes per script into ~2–3 minutes of review. Teachers keep full
-                authority over every mark and gain time for actual teaching.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>We already use MyCamu / Entab. Do we need new software?</summary>
-              <p>
-                No. We integrate with your existing ERP and student app through REST APIs and webhooks. Teachers
-                and students stay in the tools they already use.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>Do we need to buy scanners or new hardware?</summary>
-              <p>
-                No. We work with the ADF scanners campuses already own — Canon, Fujitsu, Epson — via standard
-                TWAIN/WIA drivers, with automatic deskew, contrast and blank-page discarding.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>How does your pricing work?</summary>
-              <p>
-                Per enrolled student, per month, billed for the academic year. Schools pay ₹75–100 per
-                student/month and universities slightly more; the per-student rate drops as total student
-                strength grows. You only start paying after a free 100-paper pilot confirms the value on
-                your own scripts.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>Where is student data stored?</summary>
-              <p>
-                On Indian domestic cloud infrastructure (E2E Networks / AIC Cloud), encrypted in transit and at
-                rest, and aligned with DPDP 2023 requirements. We can also run fully on-prem for sensitive campuses.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>Will this survive re-evaluation disputes?</summary>
-              <p>
-                Yes. Every tick, score and override is permanently flattened into the PDF at sign-off, creating a
-                physical-equivalent audit trail that stands up in re-evaluation and legal review.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>How is this different from pasting papers into ChatGPT or Gemini?</summary>
-              <p>
-                ChatGPT and Gemini are general-purpose chatbots: paste a paper and you get a guess — no rubric, no
-                per-question mark breakdown, no double-blind masking, and nothing you could defend in court. GradingAI
-                is built around the exam office: a rubric engine that shows the reason for every mark, teacher
-                sign-off, a flattened pen-mark PDF for disputes, and ERP integration. It's a grading system, not a
-                chat window.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>What's your moat? What stops someone copying you?</summary>
-              <p>
-                Anyone can build a vision model. The moat is the feedback loop: every mark your teachers approve or
-                override re-calibrates our rubric to your syllabus, your past papers and your students' handwriting.
-                Accuracy compounds with every exam we grade for you, and a competitor starting today has zero grading
-                history on your campus. Switching away means throwing away that calibrated accuracy.
-              </p>
-            </details>
-            <details class="faq-item">
-              <summary>Why is the feedback loop so important?</summary>
-              <p>
-                Grades alone are static — the loop is what compounds value. A corrected paper becomes a diagnostic
-                report, which pinpoints the exact sub-topics a student failed, which drives targeted teaching, which
-                shows up in the next exam — and every step gives the AI cleaner signal. It turns a one-time correction
-                service into an asset that gets smarter every term.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section class="section contact" id="contact">
-        <div class="container contact-box">
-          <p class="eyebrow">Let's talk</p>
-          <h2 class="section-title">Book your free 100-paper pilot</h2>
-          <p class="section-sub">
-            Pick a time for a 20-minute call or campus visit. We'll bring the demo, the deck and a pilot plan
-            for your next internal exam.
+<ul class="stage-highlights">
+<li>Clerk scans 40 scripts in 3 minutes — teachers do ZERO manual scanning</li>
+<li>AI detects formula correctness vs calculation mistakes</li>
+<li>Zero summation errors — totals are calculated in code, never by hand</li>
+<li>Approved marks update directly into your School ERP (MyCamu, Entab, etc.)</li>
+</ul>
+</div>
+<div class="stage-visual-box"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+<strong style="color: var(--brand-navy); font-size: 16px;">Real AI Evaluated Script with Marks</strong>
+<span style="font-size: 12px; font-weight: 700; color: var(--emerald-green); background: var(--emerald-light); padding: 3px 10px; border-radius: 4px;">Q13: 3/3 Full Mark</span>
+</div>
+<div onclick="openLightbox('assets/real/crop_bhavitha_q13.png', 'V. Bhavitha · Real AI Graded Math Script')" style="border: 2px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.06); position: relative; cursor: pointer;">
+<img alt="Real Evaluated Script with AI Markings" src="assets/real/crop_bhavitha_q13.png" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block;"/>
+<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(15, 41, 66, 0.85); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">🔍 Click to zoom proof</div>
+</div>
+<p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; text-align: center;"><strong>Read above:</strong> Parallelogram diagram, 3x+7x=180° step proof, and green Q13: 3/3 score chip.</p></div>
+</div>
+<!-- STAGE 4 -->
+<div class="stage-card reverse">
+<div class="stage-visual-box"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+<strong style="color: var(--brand-navy); font-size: 16px;">Real Class Statistical Dashboard</strong>
+<span style="font-size: 12px; font-weight: 700; color: var(--brand-navy); background: #E2E8F0; padding: 3px 10px; border-radius: 4px;">Class 8 Math · Distribution &amp; Ranking</span>
+</div>
+<div onclick="openLightbox('assets/real/real_ah_statistical_dashboard.png', 'Class 8 Math · Full Statistical Analytics Dashboard')" style="border: 2px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.06); position: relative; cursor: pointer;">
+<img alt="Real Class 8 Math Statistical Analytics Dashboard" src="assets/real/real_ah_statistical_dashboard.png" style="width: 100%; height: auto; max-height: 420px; object-fit: contain; display: block;"/>
+<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(15, 41, 66, 0.85); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">🔍 Click to enlarge statistics</div>
+</div>
+<p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; text-align: center;"><strong>Read above:</strong> Score distribution histogram (mean 35.0, median 36.8), student rankings, and most-missed question curves.</p></div>
+<div>
+<span class="stage-badge">Stage 04 · Cohort Intelligence &amp; Analytics</span>
+<h3 class="stage-title">Deep statistical distributions to spot class-wide learning gaps</h3>
+<p class="stage-desc">A single mark tells you nothing. Our academic intelligence engine maps student scores into statistical distributions (mean, median, standard deviation) and question-by-question mastery curves. Principals and teachers see instantly which chapters were mastered and which specific topics 60%+ of the class struggled with.</p>
+<ul class="stage-highlights"><li>Real statistical distribution curves (class mean, median, standard deviation)</li>
+<li>Question-by-question difficulty breakdown showing exact syllabus weak spots</li>
+<li>Identifies sliding students months before board examinations</li>
+<li>Zero low-confidence verdicts — verified accuracy on descriptive steps</li></ul>
+</div>
+</div>
+<!-- STAGE 5 -->
+<div class="stage-card">
+<div>
+<span class="stage-badge">Stage 05 · Remediation &amp; PTM Retention</span>
+<h3 class="stage-title">Personalized learning recovery for weak students &amp; proven PTM trust</h3>
+<p class="stage-desc">Academic intelligence doesn't end with analytics — it drives action. The system uses exam data to generate 1-page customized practice sheets for students targeting only their weak concepts, while arming the school with objective diagnostic reports for parent PTMs.</p>
+<ul class="stage-highlights"><li>1-Page personalized practice sheets printed for weak students</li>
+<li>Replaces subjective PTM complaints with objective diagnostic evidence</li>
+<li>Helps schools close learning gaps before terminal and board exams</li>
+<li>Boosts student retention and builds long-term school reputation</li></ul>
+</div>
+<div class="stage-visual-box"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
+<strong style="color: var(--brand-navy); font-size: 16px;">Real Diagnostic Report for Parents</strong>
+<span style="font-size: 12px; font-weight: 700; color: var(--emerald-green); background: var(--emerald-light); padding: 3px 10px; border-radius: 4px;">Score: 38/40 (95%)</span>
+</div>
+<div onclick="openLightbox('assets/real/real_ah_student_report_card.png', 'Academic Heights · Real Student Diagnostic Report')" style="border: 2px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.06); position: relative; cursor: pointer;">
+<img alt="Real Student Diagnostic Report Card" src="assets/real/crop_readable_report_card.png" style="width: 100%; height: auto; max-height: 380px; object-fit: contain; display: block;"/>
+<div style="position: absolute; bottom: 8px; right: 8px; background: rgba(15, 41, 66, 0.85); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px;">🔍 Click to read report</div>
+</div>
+<p style="font-size: 14px; color: var(--text-muted); margin-top: 10px; text-align: center;"><strong>Read above:</strong> B. Sudharshan (38/40), handwriting rating 8/10, question-by-question evidence.</p></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ACT 3: CLASSROOM EVIDENCE -->
+<section class="section" id="evidence">
+<div class="container">
+<div class="evidence-grid">
+<div>
+<span class="eyebrow">Real Classroom Evidence</span>
+<h2 class="section-title">Tested on real student handwriting in Tirupati</h2>
+<p class="section-sub">
+            We ran a complete, unassisted live pilot at <strong>Academic Heights, Cherlopalli</strong> for Class 8 Periodic Test-II across Mathematics, Physics, and Biology.
           </p>
-          <div class="contact-actions">
-            <a class="btn btn-primary btn-lg" href="mailto:kpuneeth20019@gmail.com">✉️ kpuneeth20019@gmail.com</a>
-            <a class="btn btn-primary btn-lg" href="/live.html">Try Live AI Grading</a>
-            <a class="btn btn-outline btn-lg" href="/demo.html">Explore Enterprise Walkthrough</a>
-          </div>
-          <p class="fine-print center">Serving CBSE schools &amp; autonomous colleges in Tirupati, Hyderabad and Telangana / Andhra Pradesh.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <div>
-          <a class="brand" href="#top">
-            <img class="brand-mark" src="/pen-logo.svg" alt="GradingAI Co-Pilot" width="34" height="34" aria-hidden="true">
-            <span class="brand-text"><strong>GradingAI Co-Pilot</strong></span>
-          </a>
-          <p>AI-assisted descriptive exam correction for Indian schools &amp; colleges.</p>
-        </div>
-        <div class="footer-links">
-          <a href="#problem">Problem</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#roi">ROI</a>
-          <a href="#moat">Moat</a>
-          <a href="#pilot">Pilot</a>
-          <a href="#deck">Pitch deck</a>
-          <a href="/live.html">Live AI Engine</a>
-          <a href="/demo.html">Enterprise Walkthrough</a>
-        </div>
-        <div class="footer-contact">
-          <a href="mailto:kpuneeth20019@gmail.com">kpuneeth20019@gmail.com</a>
-          <span>Built in India 🇮🇳 · DPDP aligned</span>
-        </div>
-      </div>
-    </footer>
-
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-    <script>
-      const SLIDE_COUNT = 16;
-      const inr = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        setupNav();
-        setupReveal();
-        setupCounters();
-        setupTabs();
-        setupCmp();
-        setupDemos();
-        setupCanvasToggle();
-        setupRoi();
-        setupDeck();
-        setupFaq();
-      });
-
-      function setupNav() {
-        const toggle = document.getElementById("nav-toggle");
-        const links = document.getElementById("nav-links");
-        toggle.addEventListener("click", () => {
-          const open = links.classList.toggle("open");
-          toggle.classList.toggle("open", open);
-          toggle.setAttribute("aria-expanded", String(open));
-        });
-        links.addEventListener("click", (e) => {
-          if (e.target.closest("a")) {
-            links.classList.remove("open");
-            toggle.classList.remove("open");
-            toggle.setAttribute("aria-expanded", "false");
-          }
-        });
-        document.querySelectorAll('a[href^="#"]').forEach((a) => {
-          a.addEventListener("click", (e) => {
-            const id = a.getAttribute("href");
-            if (id.length > 1) {
-              const el = document.querySelector(id);
-              if (el) {
-                e.preventDefault();
-                el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }
-          });
-        });
-      }
-
-      function setupReveal() {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("revealed");
-              io.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12 });
-        document.querySelectorAll(".card, .step, .tl-step, .price, .split-visual, .roi-layout").forEach((el) => {
-          el.classList.add("reveal");
-          io.observe(el);
-        });
-      }
-
-      function setupCounters() {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const el = entry.target;
-            const target = Number(el.dataset.count);
-            const prefix = el.dataset.prefix || "";
-            const suffix = el.dataset.suffix || "";
-            const dur = 1400;
-            const start = performance.now();
-            const fmt = new Intl.NumberFormat("en-IN");
-            (function tick(now) {
-              const p = Math.min((now - start) / dur, 1);
-              const eased = 1 - Math.pow(1 - p, 3);
-              el.textContent = prefix + fmt.format(Math.round(target * eased)) + suffix;
-              if (p < 1) requestAnimationFrame(tick);
-            })(start);
-            io.unobserve(el);
-          });
-        }, { threshold: 0.5 });
-        document.querySelectorAll("[data-count]").forEach((el) => io.observe(el));
-      }
-
-      function setupTabs() {
-        document.querySelectorAll(".tab-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const group = btn.closest(".tabs");
-            group.querySelectorAll(".tab-btn").forEach((b) => {
-              b.classList.remove("active");
-              b.setAttribute("aria-selected", "false");
-            });
-            btn.classList.add("active");
-            btn.setAttribute("aria-selected", "true");
-            const id = btn.dataset.panel;
-            group.parentElement.querySelectorAll(".tab-panel").forEach((p) => {
-              p.classList.toggle("active", p.id === id);
-            });
-          });
-        });
-      }
-
-      function setupCmp() {
-        document.querySelectorAll(".cmp-toggle button").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const toggle = btn.closest(".cmp-toggle");
-            toggle.querySelectorAll("button").forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            const cmp = toggle.closest(".cmp");
-            cmp.classList.toggle("cmp-today", btn.dataset.cmp === "today");
-            cmp.classList.toggle("cmp-next", btn.dataset.cmp === "next");
-          });
-        });
-      }
-
-      function reducedMotion() {
-        return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      }
-
-      function setupDemos() {
-        const hero = document.getElementById("hero-demo");
-        const canvas = document.getElementById("canvas-demo");
-        if (!hero && !canvas) return;
-
-        const statusTxt = document.getElementById("hero-status-txt");
-        const runHero = () => {
-          const bar = document.getElementById("hero-bar");
-          hero.classList.remove("autoplay");
-          bar.classList.remove("done");
-          if (statusTxt) statusTxt.textContent = "Auto-grading… reading script";
-          void hero.offsetWidth;
-          hero.classList.add("autoplay");
-          setTimeout(() => bar.classList.add("done"), 2100);
-          setTimeout(() => {
-            if (statusTxt) statusTxt.textContent = "Auto-graded Q1–Q6 · ready for teacher";
-          }, 3400);
-        };
-        const heroDone = () => {
-          hero.classList.add("autoplay");
-          const b = document.getElementById("hero-bar");
-          if (b) b.classList.add("done");
-          if (statusTxt) statusTxt.textContent = "Auto-graded Q1–Q6 · ready for teacher";
-        };
-
-        const runCanvas = () => {
-          canvas.classList.remove("playing");
-          void canvas.offsetWidth;
-          canvas.classList.add("playing");
-        };
-
-        const observeHero = () => {
-          if (reducedMotion()) { heroDone(); return; }
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                runHero();
-                setInterval(runHero, 7000);
-                io.disconnect();
-              }
-            });
-          }, { threshold: 0.3 });
-          io.observe(hero);
-        };
-        const observeCanvas = () => {
-          if (reducedMotion()) { canvas.classList.add("playing"); return; }
-          let timer = null;
-          const io = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                if (timer) clearInterval(timer);
-                runCanvas();
-                timer = setInterval(runCanvas, 6500);
-                io.disconnect();
-              }
-            });
-          }, { threshold: 0.25 });
-          io.observe(canvas);
-
-          const play = document.getElementById("demo-play");
-          if (play) {
-            play.addEventListener("click", () => {
-              if (timer) { clearInterval(timer); timer = null; canvas.classList.remove("playing"); play.textContent = "▶ Play"; play.setAttribute("aria-label", "Play grading demo"); }
-              else { runCanvas(); timer = setInterval(runCanvas, 6500); play.textContent = "❚❚ Pause"; play.setAttribute("aria-label", "Pause grading demo"); }
-            });
-          }
-        };
-
-        if (hero) observeHero();
-        if (canvas) observeCanvas();
-      }
-
-      function setupCanvasToggle() {
-        const btns = document.querySelectorAll(".seg-btn");
-        const annotations = document.getElementById("annotations");
-        const img = document.getElementById("canvas-img");
-        btns.forEach((btn) => {
-          btn.addEventListener("click", () => {
-            btns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-            const mode = btn.dataset.mode;
-            annotations.classList.toggle("hidden", mode !== "ai");
-            img.classList.toggle("dimmed", mode === "ai");
-          });
-        });
-      }
-
-      function setupRoi() {
-        const form = document.getElementById("roi-form");
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          const data = Object.fromEntries(new FormData(form).entries());
-          const students = Number(data.students) || 0;
-          const perMonth = Number(data.scripts_per_month) || 0;
-          const manualMin = Number(data.manual_min) || 0;
-          const aiMin = Number(data.ai_min) || 0;
-          const rate = Number(data.teacher_rate) || 0;
-          const curDays = Number(data.current_days) || 0;
-          const projDays = Number(data.projected_days) || 0;
-          const savedMin = Math.max(manualMin - aiMin, 0);
-          const scriptsMonth = students * perMonth;
-          const hoursMonth = Math.round((scriptsMonth * savedMin) / 60);
-          const hoursYear = hoursMonth * 12;
-          const valueMonth = hoursMonth * rate;
-          const valueYear = hoursYear * rate;
-
-          document.getElementById("roi-hours-month").textContent = hoursMonth.toLocaleString("en-IN") + " hrs";
-          document.getElementById("roi-value-month").textContent =
-            "₹" + (valueMonth / 100000).toLocaleString("en-IN", { maximumFractionDigits: 1 }) + " Lakh";
-          document.getElementById("roi-value-year").textContent =
-            "₹" + (valueYear / 100000).toLocaleString("en-IN", { maximumFractionDigits: 1 }) + " Lakh";
-          document.getElementById("roi-days").textContent =
-            Math.max(curDays - projDays, 0) + " days faster";
-          showToast("Teacher time recalculated");
-        });
-        form.dispatchEvent(new Event("submit", { cancelable: true }));
-      }
-
-      function setupDeck() {
-        const img = document.getElementById("deck-img");
-        const counter = document.getElementById("deck-counter");
-        const thumbs = document.getElementById("deck-thumbs");
-        const prev = document.getElementById("deck-prev");
-        const next = document.getElementById("deck-next");
-        let current = 1;
-
-        const pad = (n) => String(n).padStart(2, "0");
-        for (let i = 1; i <= SLIDE_COUNT; i++) {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.className = "thumb" + (i === 1 ? " active" : "");
-          b.setAttribute("role", "listitem");
-          const im = document.createElement("img");
-          im.src = `/assets/slides/slide-${pad(i)}.jpg`;
-          im.alt = `Slide ${i}`;
-          im.loading = "lazy";
-          b.appendChild(im);
-          b.addEventListener("click", () => show(i));
-          thumbs.appendChild(b);
-        }
-
-        function show(i) {
-          current = Math.max(1, Math.min(SLIDE_COUNT, i));
-          img.style.opacity = 0;
-          setTimeout(() => {
-            img.src = `/assets/slides/slide-${pad(current)}.jpg`;
-            img.style.opacity = 1;
-          }, 120);
-          counter.textContent = `${current} / ${SLIDE_COUNT}`;
-          thumbs.querySelectorAll(".thumb").forEach((t, idx) => t.classList.toggle("active", idx === current - 1));
-          img.alt = `Pitch deck slide ${current}`;
-        }
-
-        prev.addEventListener("click", () => show(current - 1));
-        next.addEventListener("click", () => show(current + 1));
-      }
-
-      function setupFaq() {
-        document.querySelectorAll(".faq-item summary").forEach((sum) => {
-          sum.addEventListener("click", () => {
-            document.querySelectorAll(".faq-item").forEach((item) => {
-              if (item !== sum.closest(".faq-item")) item.removeAttribute("open");
-            });
-          });
-        });
-      }
-
-      function showToast(message) {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.classList.add("show");
-        window.setTimeout(() => toast.classList.remove("show"), 2200);
-      }
-    </script>
-  </body>
+<div class="evidence-stats-grid">
+<div class="evidence-stat-card">
+<div class="evidence-num">127</div>
+<div class="evidence-label">Pages Processed &amp; Deskewed</div>
+</div>
+<div class="evidence-stat-card">
+<div class="evidence-num">492</div>
+<div class="evidence-label">Questions Evaluated with Rubrics</div>
+</div>
+<div class="evidence-stat-card">
+<div class="evidence-num">92%</div>
+<div class="evidence-label">Staffroom Checking Time Saved</div>
+</div>
+<div class="evidence-stat-card">
+<div class="evidence-num">0</div>
+<div class="evidence-label">Calculation or Summation Slips</div>
+</div>
+</div>
+</div>
+<div style="background: var(--canvas-warm); border: 1px solid var(--border-strong); border-radius: var(--radius-xl); padding: 36px;">
+<h3 style="font-size: 22px; font-weight: 800; color: var(--brand-navy); margin-bottom: 12px;">What the School Principal Saw:</h3>
+<ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 16px; color: var(--text-muted);">
+<li><strong>• Handled Cursive &amp; Messy Scans:</strong> Processed real answer sheets with overwritten numbers, geometry diagrams, and multi-page runs.</li>
+<li><strong>• 4 Hours Compressed to 25 Minutes:</strong> Teachers didn't have to carry bundles home over the weekend.</li>
+<li><strong>• Instant ERP Export:</strong> Class statistics and mark sheets were ready for the office immediately.</li>
+</ul>
+<div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+<span style="font-size: 15px; font-weight: 700; color: var(--brand-navy);">Academic Heights, Cherlopalli</span>
+<span style="font-size: 14px; color: var(--emerald-green); font-weight: 700;">Verified Classroom Pilot ✓</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ACT 4: SCHOOL PRICING -->
+<section class="section section-tint" id="pricing">
+<div class="container">
+<div style="text-align: center; max-width: 800px; margin: 0 auto;">
+<span class="eyebrow">Predictable School Pricing</span>
+<h2 class="section-title" style="margin: 0 auto;">Simple, per-exam pricing for standalone schools</h2>
+<p class="section-sub" style="margin: 14px auto 0 auto;">
+          Billed per student for all 6 core subjects combined (Maths, Science, Social, Telugu, Hindi, English). Designed specifically for schools with around 400 students. Zero setup charges.
+        </p>
+</div>
+<div class="pricing-grid">
+<!-- FREE PILOT -->
+<div class="price-card">
+<div>
+<span class="eyebrow" style="color: var(--text-light);">Zero Risk Trial</span>
+<h3 class="price-tier-name">Free Pilot</h3>
+<div class="price-rate">₹0 <span>/ 100 papers</span></div>
+<p style="font-size: 15px; color: var(--text-light); margin-top: 6px;">Test on real papers before spending 1 rupee</p>
+<ul class="price-features">
+<li>100 real student papers from your school</li>
+<li>AI checks step-by-step with clear reasons</li>
+<li>Accuracy &amp; teacher-time report for management</li>
+<li>Zero hardware or software installation required</li>
+</ul>
+</div>
+<a class="btn btn-outline" href="#contact" style="width: 100%; margin-top: 24px;">Start 100 Papers Free</a>
+</div>
+<!-- MODEL A -->
+<div class="price-card">
+<div>
+<span class="eyebrow">Core Evaluation</span>
+<h3 class="price-tier-name">Model A — Base</h3>
+<div class="price-rate">₹35 <span>/ student / exam</span></div>
+<p style="font-size: 15px; color: var(--text-light); margin-top: 6px;">Covers all 6 core subjects per exam cycle</p>
+<ul class="price-features">
+<li>Balanced question paper generator for teachers</li>
+<li>AI auto-checks all 6 subjects' answer sheets</li>
+<li>Instant mark-sheet export for your school ERP</li>
+<li>Class-wide pass, fail &amp; average statistics</li>
+</ul>
+</div>
+<a class="btn btn-outline" href="#contact" style="width: 100%; margin-top: 24px;">Get Model A Quote</a>
+</div>
+<!-- MODEL B (FEATURED) -->
+<div class="price-card featured">
+<div class="featured-ribbon">Academic Intelligence · Recommended</div>
+<div>
+<span class="eyebrow">Full Closed Loop</span>
+<h3 class="price-tier-name">Model B — Premium</h3>
+<div class="price-rate" style="color: var(--rust-orange);">₹40 <span>/ student / exam</span></div>
+<p style="font-size: 15px; color: var(--text-light); margin-top: 6px;">Everything in Base + Learning Recovery</p>
+<ul class="price-features">
+<li><strong>Everything in Model A, plus:</strong></li>
+<li>Teacher verification screen to approve marks in 1 min</li>
+<li><strong>1-Page personalized practice sheets</strong> for weak students</li>
+<li>Class topic heatmap showing conceptual gaps</li>
+<li><strong>PTM Diagnostic Progress Reports</strong> for parents</li>
+<li>WhatsApp support for your staff</li>
+</ul>
+</div>
+<a class="btn btn-primary" href="#contact" style="width: 100%; margin-top: 24px;">Choose Full Loop</a>
+</div>
+</div>
+<!-- CONTRACT PACKAGES FOR 400 STUDENTS -->
+<div class="annual-callout">
+<h4 style="font-size: 22px; font-weight: 800; color: var(--brand-navy);">What this costs for a 400-student school:</h4>
+<div class="annual-grid">
+<div>
+<strong style="font-size: 18px; color: var(--rust-orange);">• 3-Month Trial Block (3 Exam Cycles):</strong>
+<p style="font-size: 16px; color: var(--text-muted); margin-top: 6px;">
+<strong>₹48,000 total</strong> (~₹120 per student). Perfect low-risk commitment for schools to test an entire academic term.
+            </p>
+</div>
+<div>
+<strong style="font-size: 18px; color: var(--emerald-green);">• 10-Month Full Academic Year (10 Exam Cycles):</strong>
+<p style="font-size: 16px; color: var(--text-muted); margin-top: 6px;">
+<strong>₹1,40,800 total</strong> (~₹1.4L / year). Includes 12% full-cycle discount. Covers all unit tests, midterms, and pre-finals.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ACT 5: FAQ & OBJECTION HANDLING -->
+<section class="section" id="faq">
+<div class="container">
+<div style="text-align: center; max-width: 800px; margin: 0 auto;">
+<span class="eyebrow">Common Questions</span>
+<h2 class="section-title" style="margin: 0 auto;">Everything principals &amp; teachers ask us</h2>
+</div>
+<div class="faq-grid">
+<div class="faq-card">
+<h3 class="faq-q">Who scans the papers? Do we need to buy expensive scanners?</h3>
+<p class="faq-a">
+            Zero new hardware is required. You can use any standard automatic feeder (ADF) scanner your school already has in the office or computer lab (Canon, HP, Epson). Any school clerk or lab assistant can scan a bundle of 40 papers in 3 to 5 minutes. Teachers do NOT have to spend time scanning.
+          </p>
+</div>
+<div class="faq-card">
+<h3 class="faq-q">Does this replace our teachers' authority?</h3>
+<p class="faq-a">
+            Never. AI does the heavy initial reading and step-by-step marking; the teacher reviews the evidence and confirms the score in 1–2 minutes instead of 15–20 minutes. The teacher remains the final authority on every single mark.
+          </p>
+</div>
+<div class="faq-card">
+<h3 class="faq-q">What about messy handwriting or overwritten numbers?</h3>
+<p class="faq-a">
+            Our vision models are trained specifically on Indian student handwriting styles (including cursive, diagram labels, and mixed English/Telugu/Hindi numbers). In our live classroom pilot, teacher agreement was over 95%. Any ambiguous answer is immediately flagged for the teacher to inspect.
+          </p>
+</div>
+<div class="faq-card">
+<h3 class="faq-q">How do parents react to AI in paper correction?</h3>
+<p class="faq-a">
+            Parents love it because they finally receive clear proof instead of a raw number. In PTMs, the school gives parents a 1-page Diagnostic Report showing exactly where marks were lost and a 5-question personalized worksheet for their child to practice at home.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- FINAL CTA -->
+<section class="section section-peach" id="contact" style="padding-top: 40px;">
+<div class="container">
+<div class="cta-banner">
+<h2 class="cta-title">See it work on 100 papers from your school</h2>
+<p class="cta-sub">
+          Send us 100 sample answer scripts from your upcoming test. We will evaluate them, generate the student practice sheets, and demonstrate the results to your principal and teachers for free.
+        </p>
+<div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+<a class="btn btn-primary" href="mailto:kpuneeth714@gmail.com?subject=GradingAI%20100-Paper%20Free%20Trial">Request Free 100-Paper Trial</a>
+<a class="btn btn-outline" href="live.html" style="color: #FFFFFF; border-color: rgba(255,255,255,0.4);">Try Interactive AI Demo</a>
+</div>
+<p style="font-size: 14px; color: var(--border-strong); margin-top: 24px;">
+          Direct Founder Contact: Puneeth Kamatham (+91 76740 51127) · Tirupati &amp; Hyderabad
+        </p>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container footer-inner">
+<div>
+<strong>GradingAI by Sanskara AI</strong> — The Complete Academic Intelligence OS.
+        <p style="font-size: 13px; margin-top: 4px;">Serving standalone private schools in Hyderabad, Telangana and Andhra Pradesh.</p>
+</div>
+<div>
+<a href="#top" style="color: var(--brand-navy); font-weight: 700; text-decoration: none;">Back to top ↑</a>
+</div>
+</div>
+</footer>
+<!-- LIGHTBOX MODAL -->
+<div id="docLightbox" style="display:none; position:fixed; z-index:99999; left:0; top:0; width:100vw; height:100vh; background:rgba(15, 23, 42, 0.92); backdrop-filter:blur(8px); justify-content:center; align-items:center; flex-direction:column; padding:20px;">
+<div style="display:flex; justify-content:space-between; align-items:center; width:100%; max-width:1100px; margin-bottom:12px; color:#fff;">
+<strong id="lightboxCaption" style="font-size:18px;"></strong>
+<button onclick="closeLightbox()" style="background:#C2410C; color:#fff; border:none; padding:8px 18px; border-radius:6px; font-size:16px; font-weight:700; cursor:pointer;">✕ Close</button>
+</div>
+<div style="max-width:1100px; max-height:85vh; overflow:auto; background:#fff; border-radius:12px; box-shadow:0 20px 50px rgba(0,0,0,0.5); padding:10px;">
+<img alt="Enlarged Document" id="lightboxImg" src="" style="width:100%; height:auto; display:block;"/>
+</div>
+</div>
+<script>
+    function openLightbox(src, caption) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption;
+      document.getElementById('docLightbox').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('docLightbox').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
 </html>
